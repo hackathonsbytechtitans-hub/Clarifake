@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClariFake — Analyzing Signal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0a0a;
+    --ink: #f2f0eb;
+    --dim: #6b6a66;
+    --accent: #6c7cff;
+    --line: #262624;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family:'Space Mono', monospace;
+    min-height:100vh;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding: clamp(18px, 3.4vw, 40px);
+  }
+
+  /* top meta readout */
+  .meta{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color: var(--dim);
+    text-transform:uppercase;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .meta span{ white-space:nowrap; }
+  .meta .accent{ color: var(--accent); }
+
+  /* center: kicker + marquee headline */
+  .center{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:10px;
+    min-height:0;
+  }
+  .kicker{
+    font-size:12px;
+    letter-spacing:0.14em;
+    color: var(--dim);
+    text-transform:uppercase;
+    padding-left: 2px;
+  }
+  .marquee{
+    overflow:hidden;
+    white-space:nowrap;
+    width:100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, black 4%, black 96%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, black 4%, black 96%, transparent 100%);
+  }
+  .marquee-track{
+    display:inline-flex;
+    animation: scroll 14s linear infinite;
+  }
+  .marquee span{
+    font-family:'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 9vw, 96px);
+    letter-spacing:0.01em;
+    line-height:1;
+    padding-right: 0.6em;
+    color: var(--ink);
+  }
+  .marquee span.tick{ color: var(--accent); padding-right:0.6em; }
+  @keyframes scroll{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+
+  /* bottom: scan status + progress */
+  .footer{
+    border-top:1px solid var(--line);
+    padding-top:14px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .status-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size: clamp(12px, 2vw, 14px);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+  #statusLabel{ color: var(--ink); }
+  #statusLabel.done{ color: var(--accent); }
+  #pctLabel{
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    font-variant-numeric: tabular-nums;
+  }
+  .track{
+    width:100%; height:1px;
+    background: var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .track .fill{
+    position:absolute; left:0; top:0; bottom:0;
+    width:0%;
+    background: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  <span>CF &mdash; 001</span>
+  <span>SIG <span class="accent" id="sigVal">00.0</span>hz</span>
+  <span>FRAME <span id="frameVal">000</span>/512</span>
+  <span>EST. NOW</span>
+</div>
+
+<div class="center">
+  <div class="kicker">Analyzing the signal</div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="tick">&mdash;</span>
+      <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="tick">&mdash;</span>
+      <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="tick">&mdash;</span>
+      <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="tick">&mdash;</span>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="status-row">
+    <span id="statusLabel">Scanning</span>
+    <span id="pctLabel">0%</span>
+  </div>
+  <div class="track"><div class="fill" id="fill"></div></div>
+</div>
+
+<script>
+(function(){
+  const sigVal = document.getElementById('sigVal');
+  const frameVal = document.getElementById('frameVal');
+  const statusLabel = document.getElementById('statusLabel');
+  const pctLabel = document.getElementById('pctLabel');
+  const fill = document.getElementById('fill');
+
+  const TARGET_SCORE = 96.8; // demo value — feed your model's real output here
+  const DURATION = 3400;
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let start = null;
+
+  function ease(t){ return 1 - Math.pow(1 - t, 4); }
+
+  function frame(ts){
+    if(!start) start = ts;
+    const elapsed = ts - start;
+    const t = Math.min(elapsed / (REDUCED ? 1 : DURATION), 1);
+    const eased = ease(t);
+
+    const pct = eased * 100;
+    pctLabel.textContent = pct.toFixed(0) + '%';
+    fill.style.width = pct + '%';
+    sigVal.textContent = (eased * 61.2).toFixed(1);
+    frameVal.textContent = String(Math.round(eased * 512)).padStart(3, '0');
+
+    if(t < 1 && !REDUCED){
+      requestAnimationFrame(frame);
+    } else {
+      pctLabel.textContent = '100%';
+      fill.style.width = '100%';
+      sigVal.textContent = '61.2';
+      frameVal.textContent = '512';
+      statusLabel.textContent = 'Verdict: ' + TARGET_SCORE + '% synthetic';
+      statusLabel.classList.add('done');
+    }
+  }
+  requestAnimationFrame(frame);
+
+  // Call this once your real page/assets are ready, to dismiss the preloader.
+  window.hidePreloader = function(){
+    document.body.style.transition = 'opacity 0.5s ease';
+    document.body.style.opacity = '0';
+    setTimeout(function(){ document.body.style.display = 'none'; }, 500);
+  };
+})();
+</script>
+</body>
+</html>
