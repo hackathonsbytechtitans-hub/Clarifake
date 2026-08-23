@@ -3,172 +3,890 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ClariFake — Analyzing Signal</title>
+<title>Clarifake — AI Media Forensics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #0a0a0a;
-    --ink: #f2f0eb;
-    --dim: #6b6a66;
-    --accent: #6c7cff;
-    --line: #262624;
+    --ink:#1E1C28;
+    --panel:#252134;
+    --panel-2:#2B2639;
+    --line:#3A3350;
+    --text:#D8D4E4;
+    --muted:#A79FBD;
+    --muted-2:#7A7292;
+    --real:#F4B740;
+    --fake:#FF5470;
+    --warn:#8C7CF5;
+    --display:'Chakra Petch',sans-serif;
+    --body:'Inter',sans-serif;
+    --mono:'JetBrains Mono',monospace;
   }
-  *{ margin:0; padding:0; box-sizing:border-box; }
-  html,body{ height:100%; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
-    background: var(--bg);
-    color: var(--ink);
-    font-family:'Space Mono', monospace;
-    min-height:100vh;
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    padding: clamp(18px, 3.4vw, 40px);
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(244,183,64,.08), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(255,84,112,.06), transparent 60%),
+      linear-gradient(180deg, #1A1824 0%, #1E1C28 40%, #201E2A 100%);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;position:relative;z-index:1;}
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0px, rgba(255,255,255,.012) 1px, transparent 1px, transparent 3px);
   }
 
-  /* top meta readout */
-  .meta{
-    display:flex;
-    justify-content:space-between;
-    font-size:11px;
-    letter-spacing:0.08em;
-    color: var(--dim);
-    text-transform:uppercase;
+  /* TOP BARS */
+  .proto-banner{
+    background:var(--panel-2);border-bottom:1px solid var(--line);
+    text-align:center;padding:8px 12px;
+    font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);
+    position:relative;z-index:3;
+  }
+  .status-bar{
     border-bottom:1px solid var(--line);
-    padding-bottom:14px;
-    flex-wrap:wrap;
-    gap:8px;
-  }
-  .meta span{ white-space:nowrap; }
-  .meta .accent{ color: var(--accent); }
-
-  /* center: kicker + marquee headline */
-  .center{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap:10px;
-    min-height:0;
-  }
-  .kicker{
-    font-size:12px;
-    letter-spacing:0.14em;
-    color: var(--dim);
-    text-transform:uppercase;
-    padding-left: 2px;
-  }
-  .marquee{
+    background:transparent;
+    position:relative;z-index:3;
     overflow:hidden;
-    white-space:nowrap;
-    width:100%;
+  }
+  .status-inner{
+    display:flex;align-items:center;
+    padding:9px 0;font-family:var(--mono);font-size:11.5px;color:var(--muted-2);
+  }
+  .marquee-track{
+    display:flex;white-space:nowrap;
+    animation:marquee 18s linear infinite;
+  }
+  .marquee-track span{display:flex;align-items:center;gap:7px;margin-right:48px;flex-shrink:0;}
+  .marquee-track .status-pill{color:var(--real);}
+  .marquee-track .status-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--real);box-shadow:0 0 8px var(--real);animation:pulse 2s infinite;}
+  @keyframes marquee{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+  }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+  /* NAV */
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+    position:relative;z-index:2;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.2px;}
+  .logo-mark{
+    width:24px;height:24px;border-radius:6px;
+    background:linear-gradient(135deg,var(--real),var(--fake));
+    position:relative;flex-shrink:0;
+  }
+  .logo-mark::after{
+    content:"";position:absolute;inset:5px;
+    border:1.5px solid var(--ink);border-radius:3px;
+  }
+  .blink-cursor{color:var(--real);animation:blink 1s step-end infinite;margin-left:2px;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+  nav ul{list-style:none;display:flex;gap:34px;}
+  nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;}
+  nav a:hover{color:var(--text);}
+  .nav-cta{
+    background:var(--real);color:#2A1600;
+    padding:9px 16px;border-radius:6px;
+    font-size:13.5px;font-weight:700;font-family:var(--mono);
+    text-decoration:none;
+    box-shadow:0 0 0 1px rgba(244,183,64,.4), 0 6px 18px rgba(244,183,64,.18);
+  }
+  .nav-links-wrap{display:flex;align-items:center;gap:34px;}
+
+  /* SUBTLE GRID — hero only, gets much fainter elsewhere */
+  header.hero{
+    position:relative;
+    padding:80px 0 90px;
+  }
+  header.hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:56px 56px;
+    opacity:.35;
+    mask-image:radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 90%);
+    pointer-events:none;
+  }
+  section{padding:84px 0;border-top:1px solid var(--line);position:relative;}
+  section::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:56px 56px;
+    opacity:.05;
+    pointer-events:none;
+  }
+
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:12px;letter-spacing:.08em;
+    color:var(--real);
+    background:rgba(244,183,64,.08);
+    border:1px solid rgba(244,183,64,.25);
+    padding:6px 12px;border-radius:20px;
+    margin-bottom:24px;
+    text-transform:uppercase;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--real);box-shadow:0 0 8px var(--real);animation:pulse 2s infinite;}
+
+  h1{
+    font-family:var(--display);
+    font-size:48px;line-height:1.12;font-weight:700;
+    letter-spacing:-.5px;
+    margin-bottom:22px;
+  }
+  h1 .accent{
+    background:linear-gradient(100deg,var(--real),#FFD98A);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-sub{font-size:16.5px;color:var(--muted);max-width:480px;margin-bottom:30px;}
+  .hero-cta{display:flex;gap:14px;margin-bottom:30px;}
+  .btn-primary{
+    background:var(--real);color:#2A1600;
+    padding:14px 26px;border-radius:8px;
+    font-weight:700;font-size:14.5px;text-decoration:none;font-family:var(--body);
+    display:inline-flex;align-items:center;gap:8px;
+    box-shadow:0 10px 24px rgba(244,183,64,.22);
+  }
+  .btn-secondary{
+    background:transparent;color:var(--text);
+    border:1px solid var(--line);
+    padding:14px 26px;border-radius:8px;
+    font-weight:600;font-size:14.5px;text-decoration:none;
+  }
+  .hero-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .hero-tag{
+    font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    border:1px solid var(--line);background:var(--panel);
+    padding:6px 11px;border-radius:6px;
+  }
+
+  /* TERMINAL PANEL (hero visual) */
+  .terminal{
+    background:#120F1B;
+    border:1px solid var(--line);
+    border-radius:12px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    overflow:visible;
+    position:relative;
+    box-shadow:0 30px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(244,183,64,.06), 0 0 40px rgba(244,183,64,.05);
+  }
+  .terminal::before,.terminal::after,
+  .result-panel::before,.result-panel::after{
+    content:"";position:absolute;width:16px;height:16px;
+    border:2px solid var(--real);opacity:.6;pointer-events:none;
+  }
+  .terminal::before,.result-panel::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .terminal::after,.result-panel::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+  .terminal-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 16px;border-bottom:1px dashed var(--line);
+    color:var(--muted);
+  }
+  .terminal-head .fname{color:var(--text);}
+  .terminal-head .analyzing{color:var(--warn);display:flex;align-items:center;gap:6px;}
+  .terminal-head .analyzing .dot{width:6px;height:6px;border-radius:50%;background:var(--warn);animation:pulse 1.1s infinite;}
+  .terminal-body{padding:18px 16px 20px;}
+  .t-preview{
+    position:relative;
+    height:120px;border:1px dashed var(--line);border-radius:8px;
+    background:radial-gradient(ellipse at center, #1D1826, #120F1B);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--muted-2);letter-spacing:.1em;font-size:11px;
+    overflow:hidden;margin-bottom:16px;
+  }
+  .t-face{width:64px;height:78px;border:1.5px dashed rgba(233,236,241,.2);border-radius:50% 50% 45% 45%;}
+  .t-scanline{
+    position:absolute;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--real),transparent);
+    box-shadow:0 0 12px var(--real);
+    animation:tscan 2.4s ease-in-out infinite;
+  }
+  @keyframes tscan{0%{top:6%;}50%{top:90%;}100%{top:6%;}}
+  .t-divider{
+    display:flex;align-items:center;gap:10px;color:var(--muted-2);
+    font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    margin:16px 0;
+  }
+  .t-divider::before,.t-divider::after{content:"";flex:1;border-top:1px dashed var(--line);}
+  .t-label{color:var(--muted);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+  .t-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .t-bar-track{flex:1;height:8px;background:var(--panel-2);border-radius:4px;overflow:hidden;border:1px solid var(--line);}
+  .t-bar-fill{height:100%;background:linear-gradient(90deg,var(--real),#FFD98A);border-radius:4px;width:0%;}
+  .t-bar-pct{color:var(--text);font-weight:700;min-width:34px;text-align:right;}
+  .t-signal{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;color:var(--muted);}
+  .t-tag{font-weight:700;font-size:10.5px;padding:2px 8px;border-radius:4px;letter-spacing:.04em;}
+  .t-tag.low{color:var(--real);background:rgba(244,183,64,.1);border:1px solid rgba(244,183,64,.3);}
+  .t-tag.medium{color:var(--warn);background:rgba(140,124,245,.1);border:1px solid rgba(140,124,245,.3);}
+  .t-tag.high{color:var(--fake);background:rgba(255,84,112,.1);border:1px solid rgba(255,84,112,.3);}
+  .t-confidence{text-align:center;padding-top:14px;}
+  .t-confidence-num{font-family:var(--display);font-size:44px;font-weight:700;color:var(--fake);line-height:1;}
+  .t-confidence-verdict{
+    display:inline-block;margin-top:10px;
+    font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.05em;
+    color:var(--fake);background:rgba(255,84,112,.1);
+    border:1px solid rgba(255,84,112,.3);padding:5px 12px;border-radius:6px;
+  }
+
+  /* SECTION SHARED */
+  .section-tag{
+    font-family:var(--mono);font-size:12px;color:var(--muted-2);
+    letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;
+  }
+  .section-head{max-width:620px;margin-bottom:52px;}
+  .section-head h2{font-family:var(--body);font-size:32px;font-weight:800;letter-spacing:-.4px;margin-bottom:14px;}
+  .section-head p{color:var(--muted);font-size:15.5px;}
+
+  /* HOW IT WORKS */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .step{
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:28px 26px;position:relative;
+  }
+  .step-num{font-family:var(--mono);font-size:12px;color:var(--muted-2);margin-bottom:20px;}
+  .step h3{font-family:var(--body);font-size:18px;font-weight:700;margin-bottom:10px;}
+  .step p{font-size:14px;color:var(--muted);}
+  .step-icon{
+    width:38px;height:38px;border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--panel-2);border:1px solid var(--line);
+    margin-bottom:18px;
+  }
+
+  /* TRUST / CONFIDENCE */
+  .trust-intro{font-family:var(--display);font-size:22px;font-weight:700;margin-bottom:28px;}
+  .trust-list{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:56px;
+  }
+  .trust-item{border-left:2px solid var(--line);padding-left:14px;}
+  .trust-item .n{font-family:var(--mono);color:var(--muted-2);font-size:12px;margin-bottom:6px;}
+  .trust-item .t{font-size:14.5px;font-weight:600;}
+
+  .breakdown{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;}
+  .signal-list{display:flex;flex-direction:column;gap:16px;}
+  .signal{
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;
+  }
+  .signal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;}
+  .signal-name{font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:9px;}
+  .signal-pct{font-family:var(--mono);font-size:13px;color:var(--real);flex-shrink:0;}
+  .signal-bar{height:6px;background:var(--panel-2);border-radius:4px;overflow:hidden;}
+  .signal-bar-fill{height:100%;background:var(--real);border-radius:4px;}
+  .signal-desc{font-size:12.5px;color:var(--muted-2);margin-top:9px;}
+  .signal-evidence{
+    font-family:var(--mono);font-size:11px;color:var(--muted);
+    margin-top:9px;background:var(--panel-2);border:1px solid var(--line);
+    padding:6px 9px;border-radius:5px;display:inline-block;
+  }
+
+  .dial-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+  .dial-ring{animation:dialFill 3.4s ease-in-out infinite;}
+  @keyframes dialFill{
+    0%{stroke-dashoffset:659.7;}
+    45%{stroke-dashoffset:72;}
+    80%{stroke-dashoffset:72;}
+    100%{stroke-dashoffset:659.7;}
+  }
+  .dial-caption{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:18px;max-width:260px;}
+
+  /* SEE WHAT CLARIFAKE SEES */
+  .scan-border-top{position:relative;}
+  .scan-border-top::after{
+    content:"";position:absolute;top:-1px;left:0;right:0;height:1px;
+    background:linear-gradient(90deg, transparent, var(--real), transparent);
+    background-size:50% 100%;
+    animation:lineSweep 3.2s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes lineSweep{
+    0%{background-position:-150% 0;}
+    100%{background-position:250% 0;}
+  }
+  .compare-col-label{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;margin-bottom:10px;text-transform:uppercase;}
+  .compare-col-label.original{color:var(--real);}
+  .compare-col-label.synthetic{color:var(--fake);}
+  .frame-analysis{
+    background:#120F1B;border:1px solid var(--line);border-radius:10px;
+    font-family:var(--mono);font-size:12.5px;overflow:hidden;
+  }
+  .frame-analysis .fa-head{
+    padding:11px 16px;border-bottom:1px dashed var(--line);color:var(--muted);
+    display:flex;justify-content:space-between;
+  }
+  .frame-analysis .fa-body{padding:16px;}
+  .fa-row{display:flex;justify-content:space-between;padding:7px 0;color:var(--text);}
+  .fa-row .label{color:var(--muted);}
+  .fa-row .ok{color:var(--real);font-weight:700;}
+  .fa-row .warn-mark{color:var(--warn);font-weight:700;}
+  .fa-row .bad{color:var(--fake);font-weight:700;}
+
+  /* USE CASES */
+  .cases{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .case{
+    border:1px solid var(--line);border-radius:12px;padding:22px 20px;
+    background:var(--panel);
+  }
+  .case.emphasis{
+    background:linear-gradient(160deg, rgba(244,183,64,.08), var(--panel));
+    border-color:rgba(244,183,64,.35);
+  }
+  .case h4{font-family:var(--body);font-size:16px;font-weight:700;margin-bottom:8px;}
+  .case p{font-size:13px;color:var(--muted);}
+
+  /* HOW IT COMPARES TABLE */
+  .compare-table{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+  .compare-table th,.compare-table td{padding:14px 20px;text-align:left;border-bottom:1px solid var(--line);font-size:14px;}
+  .compare-table th{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;background:var(--panel);}
+  .compare-table td:last-child, .compare-table th:last-child{text-align:center;}
+  .compare-table tr:last-child td{border-bottom:none;}
+  .compare-table td{background:var(--panel);color:var(--text);}
+  .check{color:var(--real);font-weight:700;}
+
+  /* RESULT PREVIEW */
+  .result-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:start;}
+  .result-panel{
+    background:#120F1B;border:1px solid var(--line);border-radius:12px;
+    font-family:var(--mono);font-size:12.5px;overflow:visible;position:relative;
+    box-shadow:0 0 0 1px rgba(244,183,64,.06), 0 0 40px rgba(244,183,64,.05);
+  }
+  .result-head{padding:14px 18px;border-bottom:1px dashed var(--line);color:var(--real);letter-spacing:.08em;font-size:11px;text-transform:uppercase;}
+  .result-body{padding:20px 18px;}
+  .result-file{color:var(--muted);margin-bottom:18px;}
+  .result-score{font-family:var(--display);font-size:52px;font-weight:700;color:var(--fake);line-height:1;}
+  .result-score-label{font-size:11px;color:var(--muted-2);letter-spacing:.08em;text-transform:uppercase;margin-top:6px;}
+  .result-verdict{
+    display:inline-block;margin-top:14px;color:var(--fake);
+    background:rgba(255,84,112,.1);border:1px solid rgba(255,84,112,.3);
+    padding:6px 12px;border-radius:6px;font-weight:700;font-size:11.5px;letter-spacing:.05em;
+  }
+  .evidence-block{margin-top:26px;padding-top:20px;border-top:1px dashed var(--line);}
+  .evidence-row{margin-bottom:14px;}
+  .evidence-row-top{display:flex;justify-content:space-between;margin-bottom:6px;color:var(--text);font-size:12px;}
+  .evidence-bar-track{height:6px;background:var(--panel-2);border-radius:4px;overflow:hidden;border:1px solid var(--line);}
+  .evidence-bar-fill{height:100%;border-radius:4px;background:var(--fake);}
+  .download-btn{
+    margin-top:22px;width:100%;background:var(--real);color:#2A1600;
+    border:none;padding:12px;border-radius:7px;font-family:var(--mono);
+    font-weight:700;font-size:12.5px;letter-spacing:.03em;cursor:pointer;
+  }
+
+  /* CTA */
+  .cta-section{text-align:center;}
+  .cta-section h2{font-family:var(--body);font-size:36px;font-weight:800;margin-bottom:16px;letter-spacing:-.5px;}
+  .cta-section p{color:var(--muted);margin-bottom:32px;}
+  .cta-buttons{display:flex;gap:14px;justify-content:center;}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;position:relative;z-index:1;}
+  .footer-row{display:flex;justify-content:space-between;align-items:center;}
+  .footer-row p{font-size:13px;color:var(--muted-2);}
+  .footer-links{display:flex;gap:24px;}
+  .footer-links a{color:var(--muted-2);text-decoration:none;font-size:13px;}
+
+  @media (max-width:860px){
+    .hero-grid,.breakdown,.compare-grid,.result-grid{grid-template-columns:1fr;}
+    .steps,.trust-list{grid-template-columns:1fr 1fr;}
+    .cases{grid-template-columns:repeat(2,1fr);}
+    nav ul{display:none;}
+    h1{font-size:34px;}
+    .footer-row{flex-direction:column;gap:14px;text-align:center;}
+    .status-inner{flex-direction:column;gap:6px;align-items:flex-start;}
+  }
+
+  /* ============ PRELOADER ============ */
+  #pl-overlay{
+    position:fixed; inset:0; z-index:9999;
+    background:#0a0a0a;
+    color:#f2f0eb;
+    font-family:'JetBrains Mono','Space Mono',monospace;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding: clamp(18px, 3.4vw, 40px);
+    transition:opacity .5s ease;
+  }
+  #pl-overlay.pl-hide{ opacity:0; pointer-events:none; }
+  .pl-meta{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:#6b6a66; border-bottom:1px solid #262624; padding-bottom:14px;
+  }
+  .pl-meta span{white-space:nowrap;}
+  .pl-meta .pl-accent{color:#6c7cff;}
+  .pl-center{flex:1; display:flex; flex-direction:column; justify-content:center; gap:10px; min-height:0;}
+  .pl-kicker{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#6b6a66; padding-left:2px;}
+  .pl-marquee{
+    overflow:hidden; white-space:nowrap; width:100%;
     -webkit-mask-image: linear-gradient(90deg, transparent 0, black 4%, black 96%, transparent 100%);
     mask-image: linear-gradient(90deg, transparent 0, black 4%, black 96%, transparent 100%);
   }
-  .marquee-track{
-    display:inline-flex;
-    animation: scroll 14s linear infinite;
-  }
-  .marquee span{
-    font-family:'Bebas Neue', sans-serif;
+  .pl-marquee-track{display:inline-flex; animation: pl-scroll 14s linear infinite;}
+  .pl-marquee span{
+    font-family:'Chakra Petch',sans-serif;
     font-size: clamp(38px, 9vw, 96px);
-    letter-spacing:0.01em;
-    line-height:1;
-    padding-right: 0.6em;
-    color: var(--ink);
+    letter-spacing:.01em; line-height:1; padding-right:.6em; color:#f2f0eb;
   }
-  .marquee span.tick{ color: var(--accent); padding-right:0.6em; }
-  @keyframes scroll{
-    from{ transform: translateX(0); }
-    to{ transform: translateX(-50%); }
+  .pl-marquee span.pl-tick{color:#6c7cff; padding-right:.6em;}
+  @keyframes pl-scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .pl-footer{ border-top:1px solid #262624; padding-top:14px; display:flex; flex-direction:column; gap:10px; }
+  .pl-status-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-size: clamp(12px, 2vw, 14px); letter-spacing:.06em; text-transform:uppercase;
   }
-
-  /* bottom: scan status + progress */
-  .footer{
-    border-top:1px solid var(--line);
-    padding-top:14px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-  }
-  .status-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    font-size: clamp(12px, 2vw, 14px);
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-  }
-  #statusLabel{ color: var(--ink); }
-  #statusLabel.done{ color: var(--accent); }
-  #pctLabel{
-    font-family:'Space Mono', monospace;
-    font-weight:700;
-    font-variant-numeric: tabular-nums;
-  }
-  .track{
-    width:100%; height:1px;
-    background: var(--line);
-    position:relative;
-    overflow:hidden;
-  }
-  .track .fill{
-    position:absolute; left:0; top:0; bottom:0;
-    width:0%;
-    background: var(--accent);
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .marquee-track{ animation: none; }
-  }
+  #pl-statusLabel{color:#f2f0eb;}
+  #pl-statusLabel.pl-done{color:#6c7cff;}
+  #pl-pctLabel{font-weight:700; font-variant-numeric:tabular-nums;}
+  .pl-track{width:100%; height:1px; background:#262624; position:relative; overflow:hidden;}
+  .pl-track .pl-fill{position:absolute; left:0; top:0; bottom:0; width:0%; background:#6c7cff;}
+  @media (prefers-reduced-motion: reduce){ .pl-marquee-track{ animation:none; } }
 </style>
 </head>
 <body>
 
-<div class="meta">
-  <span>CF &mdash; 001</span>
-  <span>SIG <span class="accent" id="sigVal">00.0</span>hz</span>
-  <span>FRAME <span id="frameVal">000</span>/512</span>
-  <span>EST. NOW</span>
+<div id="pl-overlay">
+  <div class="pl-meta">
+    <span>CF &mdash; 001</span>
+    <span>SIG <span class="pl-accent" id="pl-sigVal">00.0</span>hz</span>
+    <span>FRAME <span id="pl-frameVal">000</span>/512</span>
+    <span>EST. NOW</span>
+  </div>
+
+  <div class="pl-center">
+    <div class="pl-kicker">Analyzing the signal</div>
+    <div class="pl-marquee">
+      <div class="pl-marquee-track">
+        <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="pl-tick">&mdash;</span>
+        <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="pl-tick">&mdash;</span>
+        <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="pl-tick">&mdash;</span>
+        <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="pl-tick">&mdash;</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pl-footer">
+    <div class="pl-status-row">
+      <span id="pl-statusLabel">Scanning</span>
+      <span id="pl-pctLabel">0%</span>
+    </div>
+    <div class="pl-track"><div class="pl-fill" id="pl-fill"></div></div>
+  </div>
 </div>
 
-<div class="center">
-  <div class="kicker">Analyzing the signal</div>
-  <div class="marquee">
+
+<div class="proto-banner">⚠ Just a prototype — not a real product</div>
+
+<div class="status-bar">
+  <div class="wrap status-inner">
     <div class="marquee-track">
-      <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="tick">&mdash;</span>
-      <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="tick">&mdash;</span>
-      <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="tick">&mdash;</span>
-      <span>VERIFYING&nbsp;CLARIFAKE'S&nbsp;VERDICT</span><span class="tick">&mdash;</span>
+      <span class="status-pill"><span class="dot"></span>ANALYSIS ENGINE ONLINE</span>
+      <span>v4.0 · 14 regions</span>
+      <span>Avg. scan time 8.4s</span>
+      <span>Precision 97.3%</span>
+      <span class="status-pill"><span class="dot"></span>ANALYSIS ENGINE ONLINE</span>
+      <span>v4.0 · 14 regions</span>
+      <span>Avg. scan time 8.4s</span>
+      <span>Precision 97.3%</span>
     </div>
   </div>
 </div>
 
-<div class="footer">
-  <div class="status-row">
-    <span id="statusLabel">Scanning</span>
-    <span id="pctLabel">0%</span>
-  </div>
-  <div class="track"><div class="fill" id="fill"></div></div>
+<div class="wrap">
+  <nav>
+    <div class="logo"><div class="logo-mark"></div>Clarifake<span class="blink-cursor">_</span></div>
+    <div class="nav-links-wrap">
+      <ul>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#confidence">Confidence score</a></li>
+        <li><a href="#cases">Use cases</a></li>
+        <li><a href="#report">Reports</a></li>
+      </ul>
+      <a href="#try" class="nav-cta">[ Analyze media → ]</a>
+    </div>
+  </nav>
 </div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>Live media forensics</div>
+      <h1>Know what's <span class="accent">real</span>.<br>Before it spreads.</h1>
+      <p class="hero-sub">Upload a video or audio file. Clarifake analyzes visual, temporal, and audio signals to estimate whether synthetic generation may be present.</p>
+      <div class="hero-cta">
+        <a href="#try" class="btn-primary">Analyze a file →</a>
+        <a href="#how" class="btn-secondary">See how it works</a>
+      </div>
+      <div class="hero-tags">
+        <span class="hero-tag">MP4 / MOV / WAV / MP3</span>
+        <span class="hero-tag">~8 sec analysis</span>
+        <span class="hero-tag">0–100 confidence</span>
+      </div>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-head">
+        <span class="fname">clip_0417.mp4</span>
+        <span class="analyzing"><span class="dot"></span>ANALYZING</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-preview">
+          <div class="t-face"></div>
+          <div class="t-scanline"></div>
+        </div>
+        <div class="t-divider">scanning</div>
+        <div class="t-label">Frame analysis</div>
+        <div class="t-bar-row">
+          <div class="t-bar-track"><div class="t-bar-fill" id="frameBar"></div></div>
+          <span class="t-bar-pct" id="framePct">0%</span>
+        </div>
+        <div class="t-signal"><span>Spectral artifacts</span><span class="t-tag low">LOW</span></div>
+        <div class="t-signal"><span>Temporal drift</span><span class="t-tag high">HIGH</span></div>
+        <div class="t-signal"><span>Audio sync</span><span class="t-tag medium">MEDIUM</span></div>
+        <div class="t-divider">confidence</div>
+        <div class="t-confidence">
+          <div class="t-confidence-num" id="confNum">0</div>
+          <div class="t-confidence-verdict">LIKELY SYNTHETIC</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Process</div>
+      <h2>Three steps to a verdict</h2>
+      <p>Every upload goes through the same forensic pipeline, whether it's a 10-second clip or a full interview.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">📤</div>
+        <div class="step-num">01</div>
+        <h3>Upload media</h3>
+        <p>Drop in a video or audio file, or paste a link. Clarifake extracts frames, waveforms, and metadata automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">🔎</div>
+        <div class="step-num">02</div>
+        <h3>Analyze signals</h3>
+        <p>Multiple independent models check for generation artifacts — spectral noise, lip-sync drift, unnatural blinking, and more.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">📊</div>
+        <div class="step-num">03</div>
+        <h3>Get a confidence score</h3>
+        <p>Signals are combined into a single 0–100 score and a clear verdict: authentic, synthetic, or inconclusive.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="confidence">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Why trust this</div>
+      <h2>Not one signal. Four.</h2>
+      <p>You're not getting a black-box guess. Every score is built from four independent checks, and each one is shown to you separately.</p>
+    </div>
+    <div class="trust-list">
+      <div class="trust-item"><div class="n">01</div><div class="t">Spectral analysis</div></div>
+      <div class="trust-item"><div class="n">02</div><div class="t">Temporal analysis</div></div>
+      <div class="trust-item"><div class="n">03</div><div class="t">Audio-visual synchronization</div></div>
+      <div class="trust-item"><div class="n">04</div><div class="t">Source & metadata analysis</div></div>
+    </div>
+
+    <div class="breakdown">
+      <div class="signal-list">
+        <div class="signal">
+          <div class="signal-top"><span class="signal-name">Spectral & pixel artifacts</span><span class="signal-pct">34%</span></div>
+          <div class="signal-bar"><div class="signal-bar-fill" style="width:34%;"></div></div>
+          <p class="signal-desc">Frequency patterns inconsistent with natural camera capture.</p>
+        </div>
+        <div class="signal">
+          <div class="signal-top"><span class="signal-name">Temporal consistency</span><span class="signal-pct">27%</span></div>
+          <div class="signal-bar"><div class="signal-bar-fill" style="width:27%;"></div></div>
+          <p class="signal-desc">Frame-to-frame flicker, warping, and motion drift.</p>
+          <span class="signal-evidence">Frame 001 → 002 → 003 → 004 → ⚠ drift</span>
+        </div>
+        <div class="signal">
+          <div class="signal-top"><span class="signal-name">Audio-visual sync</span><span class="signal-pct">22%</span></div>
+          <div class="signal-bar"><div class="signal-bar-fill" style="width:22%;"></div></div>
+          <p class="signal-desc">Mismatches between speech and lip or facial movement.</p>
+        </div>
+        <div class="signal">
+          <div class="signal-top"><span class="signal-name">Source & metadata</span><span class="signal-pct">17%</span></div>
+          <div class="signal-bar"><div class="signal-bar-fill" style="width:17%;"></div></div>
+          <p class="signal-desc">Encoding history, C2PA credentials, and file provenance.</p>
+        </div>
+      </div>
+
+      <div class="dial-wrap">
+        <svg width="260" height="260" viewBox="0 0 260 260">
+          <circle cx="130" cy="130" r="105" fill="none" stroke="#2B2440" stroke-width="16"/>
+          <circle class="dial-ring" cx="130" cy="130" r="105" fill="none" stroke="url(#dialGrad)" stroke-width="16"
+            stroke-linecap="round" stroke-dasharray="659.7" stroke-dashoffset="659.7" transform="rotate(-90 130 130)"/>
+          <defs>
+            <linearGradient id="dialGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#8C7CF5"/>
+              <stop offset="100%" stop-color="#FF5470"/>
+            </linearGradient>
+          </defs>
+          <text id="dialNum" x="130" y="122" text-anchor="middle" font-family="Chakra Petch, sans-serif" font-weight="700" font-size="46" fill="#F3F0F9">0</text>
+          <text x="130" y="150" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="1" fill="#9A93AC">CONFIDENCE</text>
+        </svg>
+        <p class="dial-caption">A score above 85 is flagged as high-confidence synthetic. Between 40–85, Clarifake returns "inconclusive" rather than guess.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="see" class="scan-border-top">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">A real example</div>
+      <h2>See what Clarifake sees</h2>
+      <p>Two clips of the same scene — one untouched, one AI-generated. The frame analysis is what tells them apart.</p>
+    </div>
+    <div class="compare-grid">
+      <div>
+        <div class="compare-col-label original">Original</div>
+        <div class="frame-analysis">
+          <div class="fa-head"><span>FRAME ANALYSIS</span><span>clip_A</span></div>
+          <div class="fa-body">
+            <div class="fa-row"><span class="label">Natural motion</span><span class="ok">✓</span></div>
+            <div class="fa-row"><span class="label">Facial consistency</span><span class="ok">✓</span></div>
+            <div class="fa-row"><span class="label">Audio synchronization</span><span class="ok">✓</span></div>
+            <div class="fa-row"><span class="label">Compression artifacts</span><span class="ok">LOW</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="compare-col-label synthetic">Synthetic</div>
+        <div class="frame-analysis">
+          <div class="fa-head"><span>FRAME ANALYSIS</span><span>clip_B</span></div>
+          <div class="fa-body">
+            <div class="fa-row"><span class="label">Natural motion</span><span class="warn-mark">⚠</span></div>
+            <div class="fa-row"><span class="label">Facial consistency</span><span class="bad">✕</span></div>
+            <div class="fa-row"><span class="label">Audio synchronization</span><span class="warn-mark">⚠</span></div>
+            <div class="fa-row"><span class="label">Compression artifacts</span><span class="bad">HIGH</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cases">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Who it's for</div>
+      <h2>Built for people who can't afford to get it wrong.</h2>
+    </div>
+    <div class="cases">
+      <div class="case">
+        <h4>Newsrooms</h4>
+        <p>Verify footage before publishing.</p>
+      </div>
+      <div class="case">
+        <h4>Platforms</h4>
+        <p>Flag suspicious uploads automatically.</p>
+      </div>
+      <div class="case">
+        <h4>Investigators</h4>
+        <p>Preserve evidence and generate reports.</p>
+      </div>
+      <div class="case emphasis">
+        <h4>Everyone</h4>
+        <p>Check before you believe. Check before you share.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="compares">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">How it compares</div>
+      <h2>One clip. Multiple signals.</h2>
+    </div>
+    <table class="compare-table">
+      <tr><th>Signal</th><th>Clarifake</th></tr>
+      <tr><td>Pixel artifacts</td><td class="check">✓</td></tr>
+      <tr><td>Temporal consistency</td><td class="check">✓</td></tr>
+      <tr><td>Audio-visual sync</td><td class="check">✓</td></tr>
+      <tr><td>Metadata</td><td class="check">✓</td></tr>
+      <tr><td>Confidence score</td><td class="check">✓</td></tr>
+      <tr><td>Explainable result</td><td class="check">✓</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="report">
+  <div class="wrap result-grid">
+    <div>
+      <div class="section-tag">Sample output</div>
+      <h2 style="font-family:var(--body);font-size:30px;font-weight:800;margin-bottom:14px;">What you get back</h2>
+      <p style="color:var(--muted);font-size:15px;">Every scan ends with a verdict, a confidence score, and the underlying evidence — exportable as a forensic report you can attach to a case file or editorial review.</p>
+    </div>
+    <div class="result-panel">
+      <div class="result-head">Analysis complete</div>
+      <div class="result-body">
+        <div class="result-file">clip_0417.mp4</div>
+        <div class="result-score">91</div>
+        <div class="result-score-label">Confidence</div>
+        <div class="result-verdict">LIKELY SYNTHETIC</div>
+        <div class="evidence-block">
+          <div class="t-label">Evidence</div>
+          <div class="evidence-row">
+            <div class="evidence-row-top"><span>Spectral artifacts</span><span>HIGH</span></div>
+            <div class="evidence-bar-track"><div class="evidence-bar-fill" style="width:82%;"></div></div>
+          </div>
+          <div class="evidence-row">
+            <div class="evidence-row-top"><span>Temporal consistency</span><span>MEDIUM</span></div>
+            <div class="evidence-bar-track"><div class="evidence-bar-fill" style="width:55%;background:var(--warn);"></div></div>
+          </div>
+          <div class="evidence-row">
+            <div class="evidence-row-top"><span>Audio / visual sync</span><span>HIGH</span></div>
+            <div class="evidence-bar-track"><div class="evidence-bar-fill" style="width:78%;"></div></div>
+          </div>
+          <div class="evidence-row">
+            <div class="evidence-row-top"><span>Metadata</span><span>LOW</span></div>
+            <div class="evidence-bar-track"><div class="evidence-bar-fill" style="width:20%;background:var(--real);"></div></div>
+          </div>
+        </div>
+        <button class="download-btn">[ Download forensic report ]</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="try" class="cta-section" style="border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <h2>Run your first scan free.</h2>
+    <p>No account needed for your first three checks.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary">Analyze media →</a>
+      <a href="#" class="btn-secondary">Talk to us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <p>© 2026 Clarifake. Not a substitute for human judgment.</p>
+    <div class="footer-links">
+      <a href="#">Docs</a>
+      <a href="#">API</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function animateCount(el, target, duration, formatter){
+    let start = null;
+    function step(ts){
+      if(!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const val = Math.floor(progress * target);
+      el.textContent = formatter ? formatter(val) : val;
+      if(progress < 1){
+        requestAnimationFrame(step);
+      } else {
+        setTimeout(() => { start = null; requestAnimationFrame(step); }, 1400);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  const frameBar = document.getElementById('frameBar');
+  const framePct = document.getElementById('framePct');
+  const confNum = document.getElementById('confNum');
+
+  function loopFrame(){
+    let start = null;
+    const duration = 1800;
+    function step(ts){
+      if(!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const val = Math.floor(progress * 72);
+      frameBar.style.width = val + '%';
+      framePct.textContent = val + '%';
+      if(progress < 1){
+        requestAnimationFrame(step);
+      } else {
+        setTimeout(() => { start = null; requestAnimationFrame(step); }, 1600);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  if(frameBar) loopFrame();
+  if(confNum) animateCount(confNum, 91, 1900);
+
+  const dialNum = document.getElementById('dialNum');
+  function loopDial(){
+    let start = null;
+    const fillDuration = 1530; // 45% of 3.4s
+    const holdDuration = 1190; // next 35% hold
+    const resetDuration = 680; // remaining 20%
+    function step(ts){
+      if(!start) start = ts;
+      const elapsed = ts - start;
+      let val;
+      if(elapsed < fillDuration){
+        val = Math.floor((elapsed / fillDuration) * 91);
+      } else if(elapsed < fillDuration + holdDuration){
+        val = 91;
+      } else if(elapsed < fillDuration + holdDuration + resetDuration){
+        const p = (elapsed - fillDuration - holdDuration) / resetDuration;
+        val = Math.floor(91 * (1 - p));
+      } else {
+        start = null;
+        val = 0;
+      }
+      dialNum.textContent = val;
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if(dialNum) loopDial();
+</script>
 
 <script>
 (function(){
-  const sigVal = document.getElementById('sigVal');
-  const frameVal = document.getElementById('frameVal');
-  const statusLabel = document.getElementById('statusLabel');
-  const pctLabel = document.getElementById('pctLabel');
-  const fill = document.getElementById('fill');
+  const sigVal = document.getElementById('pl-sigVal');
+  const frameVal = document.getElementById('pl-frameVal');
+  const statusLabel = document.getElementById('pl-statusLabel');
+  const pctLabel = document.getElementById('pl-pctLabel');
+  const fill = document.getElementById('pl-fill');
+  const overlay = document.getElementById('pl-overlay');
 
   const TARGET_SCORE = 96.8; // demo value — feed your model's real output here
   const DURATION = 3400;
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let start = null;
+  let animDone = false;
+  let pageLoaded = false;
 
   function ease(t){ return 1 - Math.pow(1 - t, 4); }
+
+  function maybeDismiss(){
+    if(animDone && pageLoaded){
+      overlay.classList.add('pl-hide');
+      setTimeout(function(){ overlay.style.display = 'none'; }, 500);
+    }
+  }
 
   function frame(ts){
     if(!start) start = ts;
@@ -190,18 +908,25 @@
       sigVal.textContent = '61.2';
       frameVal.textContent = '512';
       statusLabel.textContent = 'Verdict: ' + TARGET_SCORE + '% synthetic';
-      statusLabel.classList.add('done');
+      statusLabel.classList.add('pl-done');
+      animDone = true;
+      maybeDismiss();
     }
   }
   requestAnimationFrame(frame);
 
-  // Call this once your real page/assets are ready, to dismiss the preloader.
+  window.addEventListener('load', function(){
+    pageLoaded = true;
+    maybeDismiss();
+  });
+
+  // Manual override, if needed elsewhere.
   window.hidePreloader = function(){
-    document.body.style.transition = 'opacity 0.5s ease';
-    document.body.style.opacity = '0';
-    setTimeout(function(){ document.body.style.display = 'none'; }, 500);
+    overlay.classList.add('pl-hide');
+    setTimeout(function(){ overlay.style.display = 'none'; }, 500);
   };
 })();
 </script>
+
 </body>
 </html>
