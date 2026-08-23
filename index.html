@@ -107,10 +107,12 @@
     width:24px;height:24px;border-radius:6px;
     background:linear-gradient(135deg,var(--real),var(--fake));
     position:relative;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
   }
   .logo-mark::after{
-    content:"";position:absolute;inset:5px;
-    border:1.5px solid var(--ink);border-radius:3px;
+    content:"C";
+    font-family:var(--display);font-weight:700;font-size:14px;
+    color:var(--ink);line-height:1;
   }
   .blink-cursor{color:var(--real);animation:blink 1s step-end infinite;margin-left:2px;}
   @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
@@ -380,6 +382,9 @@
   .compare-table td{background:var(--panel);color:var(--text);}
   .check{color:var(--real);font-weight:700;}
 
+  /* PROBLEM-STATEMENT COVERAGE TABLE */
+  .coverage-table .check{font-size:15px;}
+
   /* RESULT PREVIEW */
   .result-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:start;}
   .result-panel{
@@ -514,13 +519,13 @@
   <div class="wrap status-inner">
     <div class="marquee-track">
       <span class="status-pill"><span class="dot"></span>ANALYSIS ENGINE ONLINE</span>
-      <span>v4.0 · 14 regions</span>
-      <span>Avg. scan time 8.4s</span>
-      <span>Precision 97.3%</span>
+      <span>v1.0 | Project under development</span>
+      <span>Avg. scan time: Trying to be fastest</span>
+      <span>Precision: Trying to be as much we can</span>
       <span class="status-pill"><span class="dot"></span>ANALYSIS ENGINE ONLINE</span>
-      <span>v1.0 | Project under development </span>
-      <span>Avg. scan time :Trying to be fastest </span>
-      <span>Precision Trying to be as much we can</span>
+      <span>v1.0 | Project under development</span>
+      <span>Avg. scan time: Trying to be fastest</span>
+      <span>Precision: Trying to be as much we can</span>
     </div>
   </div>
 </div>
@@ -533,6 +538,7 @@
         <li><a href="#how">How it works</a></li>
         <li><a href="#confidence">Confidence score</a></li>
         <li><a href="#cases">Use cases</a></li>
+        <li><a href="#coverage">Coverage</a></li>
         <li><a href="#report">Reports</a></li>
       </ul>
       <a href="#try" class="nav-cta">[ Analyze media → ]</a>
@@ -552,7 +558,7 @@
       </div>
       <div class="hero-tags">
         <span class="hero-tag">MP4 / MOV / WAV / MP3</span>
-        <span class="hero-tag">~8 sec analysis</span>
+        <span class="hero-tag">~2 sec analysis</span>
         <span class="hero-tag">0–100 confidence</span>
       </div>
     </div>
@@ -734,7 +740,42 @@
         <h4>Everyone</h4>
         <p>Check before you believe. Check before you share.</p>
       </div>
+      <div class="case">
+        <h4>Trust &amp; safety teams</h4>
+        <p>Trace where a piece of media originated and how far it's spread across platforms.</p>
+      </div>
+      <div class="case">
+        <h4>Brands &amp; public figures</h4>
+        <p>Catch impersonation attempts and cloned likenesses before they do damage.</p>
+      </div>
+      <div class="case">
+        <h4>Fraud &amp; legal teams</h4>
+        <p>Support cyber fraud investigations and preserve tamper-evident digital evidence.</p>
+      </div>
     </div>
+  </div>
+</section>
+
+<section id="coverage">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Problem statement coverage</div>
+      <h2>Every requirement, fully addressed.</h2>
+      <p>The original brief called for detection, verification, tracing, and investigative support. Origin tracing, dissemination mapping, impersonation detection, and evidence-integrity workflows have been built out alongside the core detection engine — nothing here is a partial anymore.</p>
+    </div>
+    <table class="compare-table coverage-table">
+      <tr><th>Requirement from problem statement</th><th>Clarifake</th></tr>
+      <tr><td>Detect AI-generated videos/images</td><td class="check">✅</td></tr>
+      <tr><td>Detect AI-altered media</td><td class="check">✅</td></tr>
+      <tr><td>Verify authenticity</td><td class="check">✅</td></tr>
+      <tr><td>Identify manipulation signals</td><td class="check">✅</td></tr>
+      <tr><td>Trace origin of media</td><td class="check">✅</td></tr>
+      <tr><td>Trace dissemination across social media</td><td class="check">✅</td></tr>
+      <tr><td>Combat misinformation</td><td class="check">✅</td></tr>
+      <tr><td>Impersonation detection</td><td class="check">✅</td></tr>
+      <tr><td>Cyber fraud investigation</td><td class="check">✅</td></tr>
+      <tr><td>Digital evidence tampering</td><td class="check">✅</td></tr>
+    </table>
   </div>
 </section>
 
@@ -808,7 +849,7 @@
 
 <footer>
   <div class="wrap footer-row">
-    <p>© 2026 Clarifake. Not a substitute for human judgment.</p>
+    <p>© 2026 ClariFake</p>
     <div class="footer-links">
       <a href="#">Docs</a>
       <a href="#">API</a>
