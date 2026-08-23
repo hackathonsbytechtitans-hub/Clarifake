@@ -3,7 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clarifake — AI Media Forensics</title>
+<title>ClariFake | A Prototype</title>
+
+<!-- SEO -->
+<meta name="description" content="ClariFake is a prototype deepfake and AI-generated video detection tool. Upload a video or audio file and get a confidence score on whether it's real or AI-generated, backed by spectral, temporal, audio-sync, and metadata analysis.">
+<meta name="keywords" content="deepfake detection, AI generated video detection, AI media forensics, synthetic media detection, video authenticity checker, audio forensics, deepfake scanner, ClariFake">
+<meta name="robots" content="index, follow">
+<meta name="author" content="ClariFake">
+<link rel="canonical" href="https://clarifake.com/">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://clarifake.com/">
+<meta property="og:title" content="ClariFake | A Prototype">
+<meta property="og:description" content="A prototype deepfake and AI-generated video detector. Upload a video or audio file — ClariFake analyzes visual, temporal, and audio signals to estimate whether synthetic generation may be present.">
+<meta property="og:image" content="https://clarifake.com/favicon-32.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ClariFake | A Prototype">
+<meta name="twitter:description" content="A prototype deepfake and AI-generated video detector. Upload a video or audio file — ClariFake analyzes visual, temporal, and audio signals to estimate whether synthetic generation may be present.">
+<meta name="twitter:image" content="https://clarifake.com/favicon-32.png">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEXElEQVR4nMWXTWgdVRTHf+feO+9j8vKSpsHaGEGrolBQijs3Wu2im0qLLrpQ1C4KIkVb3AiKUMWN3dTiyq2IBRfBLEQF8WshIn5UwUVrLLWklNb6kpfOvDcz9x4Xk8R8vKcpSe1/OXPm/P/n3P/ce49QwgK+Xh8ZNy4c0sAehDsBBwjrgwIFyhkxTIbCnEjTK+cXOGWRvDG0V5C3RWRMVdfJ2RsigqpOK/pcOjczAVgBqA8O7zHIhyWvFvOi1lv5SijgQZwIBPTRtN2alDiOt6pUTokwWgZgN5h4JTxgVbksmt3rVCpHxMgoqiW5oBtf/AIUdH7tjYxqqByRuDF8GrijfIvRIkAI14ffGMQZgEBZ5W8SN4Y9YAAIit3cmDXNeoJXMy9qIyBYCWE2jf2fc03MYoeDWyRfeFZxhY2rnVAEu2EroWCc8aGTVxa5ytKMxI3hZVVq4cHr0qD1YyGXFcQt97hbFRs5JfqPfCIYI/gQrl2k6rK+rhKwMqAXeZHndNMO9YEYkeXhYg0IaLE2I5s1Rc0nFmcpioKRkU3s3LUTay2qihgp2yyCn0koWu01d6a/APmnGoBiZg5tJXTTNi8cfp7PPv2YR3Y9TCeZg8xDUDTL2LT/Aba8uBekVCDOssT11yDAK34mKRMHz9hr+xl7Yz8Yw2BzEFVlaGgIVU/9njHMQA1EuOXYE9z25rNUt23Bz3XIW7NokoH0FtFbQAiYuEpz9w4kctjmAFtffpytLz0GcZ28kyEi5O0Ed/etbP/2BOPHn0K7BSHNKHyCBsVtHmT86JPU79+GdrOenVglQJzFJykjzzzI9o/eYvPTD+FnU4qrKcXc1TJmoZoiYEYHsVFMND5CuW6CWEdopzR338ftrxzmpkO7CVm39MoKrP4LAFBss07IMsxQHVRLE640lgCFR9WjWdEjjVLkLTTL6Xe+9BUg1hBVhspqVSFob2eLoL7HC1Wk4jBRHalXe9P0EqAhIJUarYnvOH/zu/z1wTfYZoxUHcaY0kxL+VRxbhCJLGgohQaPRI7umYt0Lk2Tfj+1+ru+HQiKqVZIfzjL1IFjmKiKbVTpnDqHUaDTRa1QFAUyUCX/8XfOvnqc1le/lBU3ahhTxQ7FzH39Kz/vOIi/kmAHYtSv3px6L4EqUouIBqpoCIROzuldr2PFQJ5Tj2s457DOod2M6aMnUWfBQvuTn8juukT2x2VsXMNfScsjuM/G1McDpQgtPADiHNrJCdbgoirvv3eSvJvzxedfUqk1MPUaIQQoPOcOvlP6zZQ7p8zn6odVp2H/SEDLXzBNU0LRoVJrEEURyy6xSzecNVxu1y5gCYwxGGPw3rPeG3T/JfgXhBDKlm8ADOX97EYhGGCK0qP/p5AwzzllVJmY39yvzzjUG4qIqDJxwwcTkyTJBQwHyiaIBQquTzfKIRWxIgKGA0mSXDCATdutyaBhH+i0iGzERNwLUubW6aBhX9puTbIwnHIDx/O/AbBk8w/YCqUhAAAAAElFTkSuQmCC">
+<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEXElEQVR4nMWXTWgdVRTHf+feO+9j8vKSpsHaGEGrolBQijs3Wu2im0qLLrpQ1C4KIkVb3AiKUMWN3dTiyq2IBRfBLEQF8WshIn5UwUVrLLWklNb6kpfOvDcz9x4Xk8R8vKcpSe1/OXPm/P/n3P/ce49QwgK+Xh8ZNy4c0sAehDsBBwjrgwIFyhkxTIbCnEjTK+cXOGWRvDG0V5C3RWRMVdfJ2RsigqpOK/pcOjczAVgBqA8O7zHIhyWvFvOi1lv5SijgQZwIBPTRtN2alDiOt6pUTokwWgZgN5h4JTxgVbksmt3rVCpHxMgoqiW5oBtf/AIUdH7tjYxqqByRuDF8GrijfIvRIkAI14ffGMQZgEBZ5W8SN4Y9YAAIit3cmDXNeoJXMy9qIyBYCWE2jf2fc03MYoeDWyRfeFZxhY2rnVAEu2EroWCc8aGTVxa5ytKMxI3hZVVq4cHr0qD1YyGXFcQt97hbFRs5JfqPfCIYI/gQrl2k6rK+rhKwMqAXeZHndNMO9YEYkeXhYg0IaLE2I5s1Rc0nFmcpioKRkU3s3LUTay2qihgp2yyCn0koWu01d6a/APmnGoBiZg5tJXTTNi8cfp7PPv2YR3Y9TCeZg8xDUDTL2LT/Aba8uBekVCDOssT11yDAK34mKRMHz9hr+xl7Yz8Yw2BzEFVlaGgIVU/9njHMQA1EuOXYE9z25rNUt23Bz3XIW7NokoH0FtFbQAiYuEpz9w4kctjmAFtffpytLz0GcZ28kyEi5O0Ed/etbP/2BOPHn0K7BSHNKHyCBsVtHmT86JPU79+GdrOenVglQJzFJykjzzzI9o/eYvPTD+FnU4qrKcXc1TJmoZoiYEYHsVFMND5CuW6CWEdopzR338ftrxzmpkO7CVm39MoKrP4LAFBss07IMsxQHVRLE640lgCFR9WjWdEjjVLkLTTL6Xe+9BUg1hBVhspqVSFob2eLoL7HC1Wk4jBRHalXe9P0EqAhIJUarYnvOH/zu/z1wTfYZoxUHcaY0kxL+VRxbhCJLGgohQaPRI7umYt0Lk2Tfj+1+ru+HQiKqVZIfzjL1IFjmKiKbVTpnDqHUaDTRa1QFAUyUCX/8XfOvnqc1le/lBU3ahhTxQ7FzH39Kz/vOIi/kmAHYtSv3px6L4EqUouIBqpoCIROzuldr2PFQJ5Tj2s457DOod2M6aMnUWfBQvuTn8juukT2x2VsXMNfScsjuM/G1McDpQgtPADiHNrJCdbgoirvv3eSvJvzxedfUqk1MPUaIQQoPOcOvlP6zZQ7p8zn6odVp2H/SEDLXzBNU0LRoVJrEEURyy6xSzecNVxu1y5gCYwxGGPw3rPeG3T/JfgXhBDKlm8ADOX97EYhGGCK0qP/p5AwzzllVJmY39yvzzjUG4qIqDJxwwcTkyTJBQwHyiaIBQquTzfKIRWxIgKGA0mSXDCATdutyaBhH+i0iGzERNwLUubW6aBhX9puTbIwnHIDx/O/AbBk8w/YCqUhAAAAAElFTkSuQmCC">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
