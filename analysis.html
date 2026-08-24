@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ClariFake — Forensic Media Analysis & Deepfake Detection</title>
+<meta name="description" content="ClariFake forensic media analysis workspace for deepfake, AI-generated media, provenance, metadata, frame, temporal and audio-visual signal analysis.">
+<meta name="keywords" content="deepfake detection, AI generated media detection, digital media forensics, video authenticity, audio forensics, synthetic media detection, ClariFake, Chandigarh Police Hackathon">
+<meta name="robots" content="index, follow">
+<meta name="author" content="ClariFake">
+<link rel="canonical" href="https://clarifake.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://clarifake.com/">
+<meta property="og:title" content="ClariFake — Forensic Media Analysis">
+<meta property="og:description" content="Interactive front-end prototype for deepfake and synthetic media analysis.">
+<meta property="og:image" content="https://clarifake.com/favicon-32.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ClariFake — Forensic Media Analysis">
+<meta name="twitter:description" content="Interactive front-end prototype for deepfake and synthetic media analysis.">
+<meta name="twitter:image" content="https://clarifake.com/favicon-32.png">
+<link rel="icon" type="image/png" href="https://clarifake.com/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#1E1C28;--panel:#252134;--panel2:#2B2639;--line:#3A3350;
+  --text:#edf4f7;--muted:#8493a5;--dim:#536274;
+  --cyan:#35e0c0;--cyan2:#20bda5;--red:#ff5f6d;--amber:#ffbd59;
+  --blue:#8C7CF5;--mono:"JetBrains Mono",monospace;
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:
+ radial-gradient(800px 450px at 10% -10%,rgba(53,224,192,.10),transparent 60%),
+ radial-gradient(700px 420px at 100% 0%,rgba(99,168,255,.07),transparent 60%),
+ #070b11;color:var(--text);min-height:100vh}
+button,input{font:inherit}button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1240px,calc(100% - 36px));margin:auto}
+.top{height:34px;border-bottom:1px solid var(--line);display:flex;align-items:center;color:var(--dim);font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.top .live{color:var(--cyan);margin-right:22px}.dot{width:6px;height:6px;border-radius:50%;display:inline-block;background:currentColor;box-shadow:0 0 10px currentColor;margin-right:7px}
+nav{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;gap:10px;align-items:center;font:700 18px var(--mono)}.mark{width:25px;height:25px;border-radius:7px;background:linear-gradient(135deg,var(--cyan),var(--red));position:relative}.mark:after{content:"";position:absolute;inset:6px;border:1px solid #071016;border-radius:3px}
+.navright{display:flex;gap:22px;align-items:center;color:var(--muted);font-size:12px}.back{border:1px solid var(--line);padding:9px 13px;border-radius:7px}
+main{padding:42px 0 80px}
+.crumb{font:10px var(--mono);letter-spacing:.12em;color:var(--dim);text-transform:uppercase;margin-bottom:12px}
+.hero{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:26px}.hero h1{font:800 38px/1.05 var(--mono);letter-spacing:-1.8px}.hero p{max-width:700px;color:var(--muted);font-size:14px;line-height:1.65;margin-top:11px}
+.pill{border:1px solid rgba(53,224,192,.25);color:var(--cyan);background:rgba(53,224,192,.06);padding:8px 10px;border-radius:999px;font:10px var(--mono);white-space:nowrap}
+.workspace{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+.card{background:rgba(11,17,25,.94);border:1px solid var(--line);border-radius:13px;box-shadow:0 18px 55px rgba(0,0,0,.22);overflow:hidden}
+.head{height:48px;padding:0 17px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.head b{font:700 10px var(--mono);letter-spacing:.08em}.head span{font:9px var(--mono);color:var(--dim)}
+.upload{padding:17px}
+.drop{min-height:310px;border:1px dashed #33475f;border-radius:10px;display:grid;place-items:center;text-align:center;background:
+ linear-gradient(135deg,rgba(53,224,192,.045),rgba(99,168,255,.025));position:relative;overflow:hidden;transition:.2s}
+.drop.drag{border-color:var(--cyan);background:rgba(53,224,192,.08);transform:scale(1.003)}
+.drop:before{content:"";position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.5}
+.uploadIcon{width:60px;height:60px;margin:0 auto 15px;border:1px solid #304258;border-radius:14px;background:var(--panel2);display:grid;place-items:center;color:var(--cyan);font:26px var(--mono)}
+.drop h2{font:700 17px var(--mono);margin-bottom:8px}.drop p{font-size:12px;color:var(--muted);margin-bottom:15px}.choose{display:inline-flex;background:var(--cyan);color:#2A1600;padding:11px 16px;border-radius:7px;font-weight:800;font-size:12px}.formats{font:9px var(--mono);color:var(--dim);margin-top:13px}
+.filebar{display:none;margin-top:12px;border:1px solid var(--line);background:var(--panel2);padding:11px 12px;border-radius:8px;justify-content:space-between;font:10px var(--mono)}.filebar.show{display:flex}.filebar small{color:var(--muted)}
+.primary{width:100%;border:0;background:var(--cyan);color:#2A1600;border-radius:7px;padding:13px;font-weight:900;margin-top:12px}.primary:disabled{opacity:.35;cursor:not-allowed}
+.pipeline{padding:17px}.stage{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:8px;background:#0b1119;margin-bottom:9px}.num{width:25px;height:25px;border-radius:6px;background:var(--panel2);display:grid;place-items:center;font:10px var(--mono);color:var(--dim)}.stage b{font-size:11px}.stage small{display:block;color:var(--dim);font-size:9.5px;margin-top:3px}.badge{font:700 8px var(--mono);border:1px solid var(--line);padding:4px 6px;border-radius:4px;color:var(--dim)}.stage.active{border-color:rgba(53,224,192,.45)}.stage.active .num{color:var(--cyan);border:1px solid rgba(53,224,192,.3)}.stage.active .badge,.stage.done .badge{color:var(--cyan);border-color:rgba(53,224,192,.25)}
+.progress{margin-top:15px}.prow{display:flex;justify-content:space-between;font:9px var(--mono);color:var(--muted);margin-bottom:7px}.track{height:7px;background:var(--panel2);border-radius:10px;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .12s}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.metric{border:1px solid var(--line);border-radius:8px;padding:10px}.metric label{display:block;color:var(--dim);font:8px var(--mono);margin-bottom:5px;text-transform:uppercase}.metric strong{font:11px var(--mono)}
+.preview{display:none;margin-top:12px;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#05080d}.preview.show{display:block}.previewTop{padding:9px 11px;display:flex;justify-content:space-between;border-bottom:1px solid var(--line);font:9px var(--mono);color:var(--muted)}video{width:100%;max-height:260px;display:block;background:#020407}.fakeFrames{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;padding:7px;background:#070b11}.frame{height:32px;background:linear-gradient(135deg,#182435,#27364b);border:1px solid #2c3b4e;border-radius:3px;position:relative;overflow:hidden}.frame:after{content:"";position:absolute;left:0;right:0;top:var(--scan,45%);height:1px;background:rgba(53,224,192,.75);box-shadow:0 0 8px rgba(53,224,192,.5)}
+.result{display:none;margin-top:18px}.result.show{display:block}.resultBody{padding:20px}.resultTop{display:grid;grid-template-columns:240px 1fr;gap:24px}.scoreLabel{font:9px var(--mono);color:var(--dim);letter-spacing:.1em}.score{font:800 68px/1 var(--mono);color:var(--red);margin-top:7px}.verdict{display:inline-block;margin-top:9px;border:1px solid rgba(255,95,109,.35);background:rgba(255,95,109,.08);color:var(--red);padding:7px 9px;border-radius:5px;font:700 9px var(--mono)}.source{border:1px solid var(--line);border-radius:9px;padding:14px;background:#0a1018}.source label{font:8px var(--mono);color:var(--dim);display:block;margin-bottom:7px}.source strong{font:12px var(--mono)}.source p{font-size:11px;color:var(--muted);line-height:1.5;margin-top:6px}.sourceRow{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.signalTitle{font:9px var(--mono);color:var(--dim);letter-spacing:.08em;margin:20px 0 12px}.sig{margin-bottom:12px}.sigTop{display:flex;justify-content:space-between;font-size:10px;margin-bottom:6px}.sigTop span:last-child{font:9px var(--mono);color:var(--muted)}.sigbar{height:5px;background:var(--panel2);border-radius:5px;overflow:hidden}.sigbar i{height:100%;display:block;background:var(--red)}.notice{margin-top:15px;border-left:2px solid var(--amber);background:rgba(255,189,89,.04);padding:11px;color:var(--muted);font-size:10px;line-height:1.55}.actions{display:flex;gap:9px;margin-top:14px}.secondary{border:1px solid var(--line);background:transparent;color:var(--text);padding:10px 13px;border-radius:7px;font-size:11px;font-weight:700}
+.scanOverlay{position:fixed;inset:0;background:rgba(2,5,9,.74);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:20;padding:20px}.scanOverlay.show{display:flex}.modal{width:min(640px,100%);border:1px solid #29405a;background:#09111a;border-radius:15px;box-shadow:0 30px 100px rgba(0,0,0,.55);overflow:hidden}.modalHead{padding:15px 17px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;font:10px var(--mono)}.modalHead span{color:var(--cyan)}.modalBody{padding:18px}.modalFile{font:11px var(--mono);color:var(--text);margin-bottom:13px}.frameStage{height:210px;border:1px solid var(--line);border-radius:9px;background:
+ repeating-linear-gradient(0deg,rgba(53,224,192,.025) 0,rgba(53,224,192,.025) 1px,transparent 1px,transparent 4px),
+ radial-gradient(circle at 50% 50%,rgba(53,224,192,.11),transparent 45%),#05090f;display:grid;place-items:center;position:relative;overflow:hidden}.frameGrid{position:absolute;inset:18px;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;opacity:.7}.scanFrame{border:1px solid #24354a;background:linear-gradient(135deg,#111d2b,#1a2636);border-radius:3px;position:relative}.scanFrame:after{content:"";position:absolute;left:0;right:0;top:var(--y);height:1px;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}.spinner{width:55px;height:55px;border:2px solid #26394c;border-top-color:var(--cyan);border-radius:50%;animation:spin 1s linear infinite;z-index:2}.modalPct{font:700 24px var(--mono);z-index:3;margin-top:12px}.modalCenter{display:flex;flex-direction:column;align-items:center}.scanLine{position:absolute;left:0;right:0;height:1px;background:var(--cyan);box-shadow:0 0 18px var(--cyan);animation:sweep 1.8s linear infinite}.modalStats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.mstat{border:1px solid var(--line);border-radius:7px;padding:9px}.mstat label{display:block;font:8px var(--mono);color:var(--dim);margin-bottom:4px}.mstat strong{font:10px var(--mono)}@keyframes spin{to{transform:rotate(360deg)}}@keyframes sweep{from{top:0}to{top:100%}}
+@media(max-width:900px){.workspace,.resultTop{grid-template-columns:1fr}.hero{align-items:start;flex-direction:column}.navright span{display:none}}
+@media(max-width:560px){.wrap{width:min(100% - 22px,1240px)}main{padding-top:28px}.hero h1{font-size:28px}.top{font-size:8px}.modalStats{grid-template-columns:1fr}.sourceRow{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}}
+
+/* ClariFake main-site theme alignment */
+body{background:
+ radial-gradient(900px 500px at 15% -10%,rgba(244,183,64,.08),transparent 60%),
+ radial-gradient(700px 500px at 100% 10%,rgba(255,84,112,.06),transparent 60%),
+ linear-gradient(180deg,#1A1824 0%,#1E1C28 45%,#201E2A 100%);}
+.top{background:rgba(43,38,57,.55);}
+.logo{font-family:"Chakra Petch",sans-serif;letter-spacing:.2px}
+.mark{background:linear-gradient(135deg,var(--cyan),var(--red));display:grid;place-items:center;color:#2A1600;font:700 14px "Chakra Petch",sans-serif;box-shadow:0 0 0 1px rgba(244,183,64,.35),0 6px 18px rgba(244,183,64,.12)}
+.mark:after{content:none}
+.card,.stage,.source,.metric,.filebar,.preview,.modal,.mstat{background:var(--panel);border-color:var(--line)}
+.drop{border-color:#4A425F;background:linear-gradient(135deg,rgba(244,183,64,.055),rgba(255,84,112,.025))}
+.drop.drag{border-color:var(--cyan);background:rgba(244,183,64,.08)}
+.uploadIcon{background:var(--panel2);border-color:var(--line)}
+.choose,.primary{background:var(--cyan);color:#2A1600;box-shadow:0 8px 22px rgba(244,183,64,.12)}
+.secondary,.back{border-color:var(--line)}
+.fill{background:linear-gradient(90deg,var(--amber),var(--cyan));}
+.result .score{color:var(--red)}
+.verdict{color:var(--red);background:rgba(255,84,112,.1);border-color:rgba(255,84,112,.3)}
+.sigbar i{background:var(--red)}
+.scanOverlay{background:rgba(15,13,21,.78)}
+.modal{background:#120F1B}
+.frameStage{background:radial-gradient(circle at 50% 50%,rgba(244,183,64,.11),transparent 45%),#120F1B}
+.scanFrame{background:linear-gradient(135deg,#1D1826,#2B2639);border-color:var(--line)}
+.scanLine,.scanFrame:after{background:var(--cyan);box-shadow:0 0 14px var(--cyan)}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ClariFake","url":"https://clarifake.com/","description":"Front-end prototype for forensic analysis of suspicious digital media, including deepfake and synthetic media detection signals.","applicationCategory":"SecurityApplication","operatingSystem":"Web"}</script>
+</head>
+<body>
+<div class="top"><div class="wrap"><span class="live"><span class="dot"></span>ENGINE ONLINE</span>CHANDIGARH POLICE HACKATHON 2026 · MEDIA INTEGRITY WORKBENCH</div></div>
+<div class="wrap">
+<nav>
+  <a class="logo" href="index.html"><span class="mark" aria-hidden="true">C</span>ClariFake<span style="color:var(--cyan)">_</span></a>
+  <div class="navright"><span>CASE REVIEW MODE</span><a class="back" href="index.html">← Back to ClariFake</a></div>
+</nav>
+<main>
+  <div class="crumb">Evidence workspace / forensic triage</div>
+  <div class="hero">
+    <div><h1>Analyze suspicious media.</h1><p>Upload a video or audio file and watch a simulated forensic pipeline inspect metadata, frames, temporal consistency and audio/visual alignment. The interface is presentation-ready for a front-end-only hackathon demo.</p></div>
+    <div class="pill">DEMO MODE · LOCAL UI</div>
+  </div>
+
+  <div class="workspace">
+    <section class="card">
+      <div class="head"><b>01 / EVIDENCE INPUT</b><span>LOCAL UPLOAD</span></div>
+      <div class="upload">
+        <div class="drop" id="drop">
+          <div>
+            <div class="uploadIcon" aria-hidden="true">↥</div>
+            <h2>Drop evidence here</h2>
+            <p>Video or audio suspected to be manipulated</p>
+            <label class="choose" for="file">Browse evidence</label>
+            <input id="file" type="file" accept="video/*,audio/*">
+            <div class="formats">MP4 · MOV · AVI · WEBM · WAV · MP3 · MAX 500 MB</div>
+          </div>
+        </div>
+        <div class="filebar" id="filebar"><span id="fname">—</span><small id="fsize">—</small></div>
+        <div class="preview" id="preview">
+          <div class="previewTop"><span>MEDIA PREVIEW</span><span id="duration">FRAME STREAM READY</span></div>
+          <video id="video" controls muted playsinline></video>
+          <div class="fakeFrames" id="fakeFrames"></div>
+        </div>
+        <button class="primary" id="scan" disabled>Start forensic analysis →</button>
+      </div>
+    </section>
+
+    <aside class="card">
+      <div class="head"><b>02 / FORENSIC PIPELINE</b><span id="engine">READY</span></div>
+      <div class="pipeline">
+        <div class="stage" id="s1"><span class="num">01</span><div><b>Media integrity</b><small>Container, codec & metadata</small></div><span class="badge">WAITING</span></div>
+        <div class="stage" id="s2"><span class="num">02</span><div><b>Frame analysis</b><small>Pixel, texture & artifact scan</small></div><span class="badge">WAITING</span></div>
+        <div class="stage" id="s3"><span class="num">03</span><div><b>Temporal consistency</b><small>Motion, warping & frame drift</small></div><span class="badge">WAITING</span></div>
+        <div class="stage" id="s4"><span class="num">04</span><div><b>Audio / visual sync</b><small>Speech and facial alignment</small></div><span class="badge">WAITING</span></div>
+        <div class="progress"><div class="prow"><span>SCAN PROGRESS</span><span id="pct">0%</span></div><div class="track"><div class="fill" id="fill"></div></div></div>
+        <div class="metrics">
+          <div class="metric"><label>Case ID</label><strong id="case">CF-2026-0417</strong></div>
+          <div class="metric"><label>Review mode</label><strong>TRIAGE</strong></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="card result" id="result" aria-live="polite">
+    <div class="head"><b>03 / ANALYSIS RESULT</b><span>REPORT GENERATED</span></div>
+    <div class="resultBody">
+      <div class="resultTop">
+        <div><div class="scoreLabel">CONFIDENCE SCORE</div><div class="score">91%</div><div class="verdict">LIKELY SYNTHETIC</div></div>
+        <div class="source">
+          <label>ORIGINAL SOURCE / PROVENANCE LEAD</label>
+          <strong id="sourceUrl">Source match pending backend verification</strong>
+          <p>This front-end demo intentionally presents a provenance lead rather than claiming a verified origin.</p>
+          <div class="sourceRow"><div class="metric"><label>Source similarity</label><strong>84%</strong></div><div class="metric"><label>Integrity signal</label><strong>LOW</strong></div></div>
+        </div>
+      </div>
+      <div class="signalTitle">EXPLAINABLE SIGNALS</div>
+      <div class="sig"><div class="sigTop"><span>Spectral & pixel artifacts</span><span>HIGH · 82%</span></div><div class="sigbar"><i style="width:82%"></i></div></div>
+      <div class="sig"><div class="sigTop"><span>Temporal consistency</span><span>MEDIUM · 55%</span></div><div class="sigbar"><i style="width:55%;background:var(--amber)"></i></div></div>
+      <div class="sig"><div class="sigTop"><span>Audio / visual sync</span><span>HIGH · 78%</span></div><div class="sigbar"><i style="width:78%"></i></div></div>
+      <div class="sig"><div class="sigTop"><span>Source & metadata</span><span>LOW · 20%</span></div><div class="sigbar"><i style="width:20%;background:var(--cyan)"></i></div></div>
+      <div class="notice">Demo disclaimer: these values are simulated UI outputs. A real deployment needs a trained detection model, provenance/source APIs and human forensic review before a media item is treated as evidence.</div>
+      <div class="actions"><button class="primary" style="width:auto;margin:0" id="report">Generate case report ↓</button><button class="secondary" id="new">Analyze another file</button></div>
+    </div>
+  </section>
+</main>
+</div>
+
+<div class="scanOverlay" id="overlay" role="dialog" aria-modal="true" aria-label="Forensic scan in progress">
+  <div class="modal">
+    <div class="modalHead"><span>CLARIFAKE FORENSIC ENGINE</span><span id="modalState">RENDERING FRAMES</span></div>
+    <div class="modalBody">
+      <div class="modalFile" id="modalFile">evidence.mp4</div>
+      <div class="frameStage">
+        <div class="frameGrid" id="frameGrid"></div>
+        <div class="scanLine"></div>
+        <div class="modalCenter"><div class="spinner"></div><div class="modalPct" id="modalPct">0%</div></div>
+      </div>
+      <div class="modalStats">
+        <div class="mstat"><label>FRAMES RENDERED</label><strong id="frames">0 / 480</strong></div>
+        <div class="mstat"><label>MODULE</label><strong id="module">MEDIA INTEGRITY</strong></div>
+        <div class="mstat"><label>ENGINE</label><strong>SIMULATED</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const input=document.getElementById('file'),drop=document.getElementById('drop'),scan=document.getElementById('scan');
+const filebar=document.getElementById('filebar'),fname=document.getElementById('fname'),fsize=document.getElementById('fsize');
+const preview=document.getElementById('preview'),video=document.getElementById('video'),frames=document.getElementById('fakeFrames');
+const overlay=document.getElementById('overlay'),modalFile=document.getElementById('modalFile'),modalPct=document.getElementById('modalPct'),frameCount=document.getElementById('frames'),module=document.getElementById('module'),modalState=document.getElementById('modalState');
+const fill=document.getElementById('fill'),pct=document.getElementById('pct'),engine=document.getElementById('engine'),result=document.getElementById('result');
+const stages=[1,2,3,4].map(n=>document.getElementById('s'+n));
+let selectedFile=null,timer=null;
+
+function sizeText(bytes){return bytes<1024*1024?(bytes/1024).toFixed(0)+' KB':(bytes/1024/1024).toFixed(1)+' MB'}
+function makeFrames(){
+  frames.innerHTML='';
+  for(let i=0;i<12;i++){const d=document.createElement('div');d.className='frame';d.style.setProperty('--scan',(15+(i%5)*17)+'%');frames.appendChild(d)}
+}
+makeFrames();
+
+function showFile(f){
+  if(!f)return;
+  if(f.size>500*1024*1024){alert('Demo limit: please choose a file under 500 MB.');return}
+  selectedFile=f;fname.textContent=f.name;fsize.textContent=sizeText(f.size);
+  filebar.classList.add('show');scan.disabled=false;modalFile.textContent=f.name;
+  if(f.type.startsWith('video/')){
+    video.src=URL.createObjectURL(f);preview.classList.add('show');
+  }else{preview.classList.remove('show')}
+}
+input.addEventListener('change',()=>showFile(input.files[0]));
+drop.addEventListener('click',e=>{if(!e.target.closest('.choose'))input.click()});
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('drag')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('drag')}));
+drop.addEventListener('drop',e=>showFile(e.dataTransfer.files[0]));
+
+function reset(){
+  if(timer)clearInterval(timer);
+  overlay.classList.remove('show');result.classList.remove('show');
+  fill.style.width='0%';pct.textContent='0%';engine.textContent='READY';
+  stages.forEach(s=>{s.classList.remove('active','done');s.querySelector('.badge').textContent='WAITING'});
+  scan.disabled=!selectedFile;
+}
+document.getElementById('new').addEventListener('click',reset);
+
+scan.addEventListener('click',()=>{
+  if(!selectedFile)return;
+  scan.disabled=true;overlay.classList.add('show');engine.textContent='RUNNING';
+  let progress=0;
+  const labels=['MEDIA INTEGRITY','FRAME ANALYSIS','TEMPORAL CONSISTENCY','AUDIO / VISUAL SYNC'];
+  timer=setInterval(()=>{
+    progress=Math.min(100,progress+1);
+    fill.style.width=progress+'%';pct.textContent=progress+'%';modalPct.textContent=progress+'%';
+    const frame=Math.min(480,Math.round(progress*4.8));frameCount.textContent=frame+' / 480';
+    const idx=Math.min(3,Math.floor(progress/25));module.textContent=labels[idx];
+    modalState.textContent=progress<75?'RENDERING FRAMES':'CALCULATING CONFIDENCE';
+    stages.forEach((s,i)=>{
+      const start=i*25,end=(i+1)*25;
+      s.classList.toggle('active',progress>=start&&progress<end);
+      s.classList.toggle('done',progress>=end);
+      s.querySelector('.badge').textContent=progress>=end?'COMPLETE':(progress>=start?'SCANNING':'WAITING');
+    });
+    if(progress>=100){
+      clearInterval(timer);
+      setTimeout(()=>{
+        overlay.classList.remove('show');engine.textContent='COMPLETE';result.classList.add('show');
+        result.scrollIntoView({behavior:'smooth',block:'start'});
+      },650);
+    }
+  },55);
+});
+
+document.getElementById('report').addEventListener('click',()=>{
+  const caseId=document.getElementById('case').textContent;
+  const fileName=selectedFile?selectedFile.name:'demo evidence';
+  const printWindow=window.open('','_blank','width=900,height=900');
+  if(!printWindow){alert('Please allow pop-ups to generate the PDF report.');return;}
+  printWindow.document.write(`<!doctype html><html><head><title>ClariFake Case Report ${caseId}</title><style>
+  body{font-family:Arial,sans-serif;color:#222;padding:40px;line-height:1.5}h1{font-size:28px}.sub{color:#666;margin-bottom:28px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.box{border:1px solid #ddd;border-radius:10px;padding:14px;margin-bottom:10px}.label{font-size:11px;color:#777;text-transform:uppercase}.value{font-weight:700;margin-top:5px}.score{font-size:44px;font-weight:800;color:#d33}.notice{margin-top:24px;padding:14px;background:#f7f2e8;border-left:4px solid #c89221}@media print{body{padding:20px}}
+  </style></head><body><h1>ClariFake — Forensic Case Report</h1><div class="sub">Front-end demonstration report · ${new Date().toLocaleString()}</div><div class="grid"><div class="box"><div class="label">Case ID</div><div class="value">${caseId}</div></div><div class="box"><div class="label">File</div><div class="value">${fileName}</div></div><div class="box"><div class="label">Verdict</div><div class="value">LIKELY SYNTHETIC</div></div><div class="box"><div class="label">Confidence</div><div class="score">91%</div></div></div><h2>Explainable Signals</h2><div class="box">Spectral & pixel artifacts — HIGH · 82%</div><div class="box">Temporal consistency — MEDIUM · 55%</div><div class="box">Audio / visual sync — HIGH · 78%</div><div class="box">Source & metadata — LOW · 20%</div><div class="notice"><b>Demo disclaimer:</b> values are simulated UI outputs. Real deployment requires a trained detection model, provenance/source APIs and human forensic review.</div></body></html>`);
+  printWindow.document.close();printWindow.focus();setTimeout(()=>printWindow.print(),300);
+});
+</script>
+</body>
+</html>
