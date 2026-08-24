@@ -1,37 +1,34 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <!-- ============ SEO: PRIMARY META TAGS ============ -->
-<title>Clarifake — Deepfake & AI Content Detection, Privacy-First | Project Documentation</title>
-<meta name="title" content="Clarifake — Deepfake & AI Content Detection, Privacy-First">
-<meta name="description" content="Clarifake is a privacy-first platform for detecting deepfakes, AI-generated images, cloned audio, and manipulated text. No account, no data retention, no paywall on core checks. Read the full project documentation.">
-<meta name="keywords" content="deepfake detection, AI content detection, synthetic media detector, image authenticity checker, video verification tool, audio deepfake detection, misinformation detection, privacy-first AI tool, content authenticity, C2PA verification, Clarifake">
-<meta name="author" content="Clarifake">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="language" content="English">
-<link rel="canonical" href="https://clarifake.com/documentation">
-
+<title>Clarifake — Deepfake &amp; AI Content Detection, Privacy-First | Project Documentation</title>
+<meta content="Clarifake — Deepfake &amp; AI Content Detection, Privacy-First" name="title"/>
+<meta content="Clarifake is a privacy-first platform for detecting deepfakes, AI-generated images, cloned audio, and manipulated text. No account, no data retention, no paywall on core checks. Read the full project documentation." name="description"/>
+<meta content="deepfake detection, AI content detection, synthetic media detector, image authenticity checker, video verification tool, audio deepfake detection, misinformation detection, privacy-first AI tool, content authenticity, C2PA verification, Clarifake" name="keywords"/>
+<meta content="Clarifake" name="author"/>
+<meta content="index, follow, max-image-preview:large" name="robots"/>
+<meta content="English" name="language"/>
+<link href="https://clarifake.com/documentation" rel="canonical"/>
 <!-- ============ SEO: OPEN GRAPH / FACEBOOK ============ -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://clarifake.com/documentation">
-<meta property="og:site_name" content="Clarifake">
-<meta property="og:title" content="Clarifake — Know What's Real. Before It Spreads.">
-<meta property="og:description" content="A privacy-first platform for detecting synthetic and manipulated digital media — video, audio, image, and text. No sign-up, no data retention, no paywall on core detection.">
-<meta property="og:image" content="https://clarifake.com/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:locale" content="en_US">
-
+<meta content="website" property="og:type"/>
+<meta content="https://clarifake.com/documentation" property="og:url"/>
+<meta content="Clarifake" property="og:site_name"/>
+<meta content="Clarifake — Know What's Real. Before It Spreads." property="og:title"/>
+<meta content="A privacy-first platform for detecting synthetic and manipulated digital media — video, audio, image, and text. No sign-up, no data retention, no paywall on core detection." property="og:description"/>
+<meta content="https://clarifake.com/og-image.png" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_US" property="og:locale"/>
 <!-- ============ SEO: TWITTER CARD ============ -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://clarifake.com/documentation">
-<meta name="twitter:title" content="Clarifake — Know What's Real. Before It Spreads.">
-<meta name="twitter:description" content="Privacy-first deepfake & synthetic media detection — no account, no data retention, no paywall on core checks.">
-<meta name="twitter:image" content="https://clarifake.com/og-image.png">
-
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="https://clarifake.com/documentation" name="twitter:url"/>
+<meta content="Clarifake — Know What's Real. Before It Spreads." name="twitter:title"/>
+<meta content="Privacy-first deepfake &amp; synthetic media detection — no account, no data retention, no paywall on core checks." name="twitter:description"/>
+<meta content="https://clarifake.com/og-image.png" name="twitter:image"/>
 <!-- ============ SEO: STRUCTURED DATA (JSON-LD) ============ -->
 <script type="application/ld+json">
 {
@@ -68,9 +65,8 @@
   ]
 }
 </script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
 <style>
 :root{--ink:#1E1C28;--panel:#252134;--panel-2:#2B2639;--line:#3A3350;--text:#D8D4E4;--muted:#A79FBD;--muted-2:#7A7292;--real:#F4B740;--fake:#FF5470;--display:'Chakra Petch',sans-serif;--body:'Inter',sans-serif;--mono:'JetBrains Mono',monospace}
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
@@ -89,10 +85,15 @@ h1{font:700 48px/1.1 var(--display);margin-bottom:18px}h1 .accent{background:lin
 .doc-section{padding:68px 0;border-bottom:1px solid var(--line)}.doc-section h2{font-size:32px;line-height:1.2;margin:8px 0 24px}.doc-subhead{font-size:21px;margin:30px 0 12px}.doc-p{max-width:850px;color:var(--muted);font-size:15px;margin-bottom:14px}.doc-list{max-width:850px;padding-left:24px;color:var(--muted);margin:10px 0 20px}.doc-list li{padding:4px 0}.doc-list li::marker{color:var(--real)}
 footer{border-top:1px solid var(--line);padding:36px 0}.footer-row{display:flex;justify-content:space-between;gap:20px;align-items:center}.footer-row p{font-size:13px;color:var(--muted-2)}
 @media(max-width:760px){.wrap{padding:0 20px}h1{font-size:36px}.doc-section{padding:48px 0}.footer-row{flex-direction:column;text-align:center}}
-</style>
-  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEXElEQVR4nMWXTWgdVRTHf+feO+9j8vKSpsHaGEGrolBQijs3Wu2im0qLLrpQ1C4KIkVb3AiKUMWN3dTiyq2IBRfBLEQF8WshIn5UwUVrLLWklNb6kpfOvDcz9x4Xk8R8vKcpSe1/OXPm/P/n3P/ce49QwgK+Xh8ZNy4c0sAehDsBBwjrgwIFyhkxTIbCnEjTK+cXOGWRvDG0V5C3RWRMVdfJ2RsigqpOK/pcOjczAVgBqA8O7zHIhyWvFvOi1lv5SijgQZwIBPTRtN2alDiOt6pUTokwWgZgN5h4JTxgVbksmt3rVCpHxMgoqiW5oBtf/AIUdH7tjYxqqByRuDF8GrijfIvRIkAI14ffGMQZgEBZ5W8SN4Y9YAAIit3cmDXNeoJXMy9qIyBYCWE2jf2fc03MYoeDWyRfeFZxhY2rnVAEu2EroWCc8aGTVxa5ytKMxI3hZVVq4cHr0qD1YyGXFcQt97hbFRs5JfqPfCIYI/gQrl2k6rK+rhKwMqAXeZHndNMO9YEYkeXhYg0IaLE2I5s1Rc0nFmcpioKRkU3s3LUTay2qihgp2yyCn0koWu01d6a/APmnGoBiZg5tJXTTNi8cfp7PPv2YR3Y9TCeZg8xDUDTL2LT/Aba8uBekVCDOssT11yDAK34mKRMHz9hr+xl7Yz8Yw2BzEFVlaGgIVU/9njHMQA1EuOXYE9z25rNUt23Bz3XIW7NokoH0FtFbQAiYuEpz9w4kctjmAFtffpytLz0GcZ28kyEi5O0Ed/etbP/2BOPHn0K7BSHNKHyCBsVtHmT86JPU79+GdrOenVglQJzFJykjzzzI9o/eYvPTD+FnU4qrKcXc1TJmoZoiYEYHsVFMND5CuW6CWEdopzR338ftrxzmpkO7CVm39MoKrP4LAFBss07IMsxQHVRLE640lgCFR9WjWdEjjVLkLTTL6Xe+9BUg1hBVhspqVSFob2eLoL7HC1Wk4jBRHalXe9P0EqAhIJUarYnvOH/zu/z1wTfYZoxUHcaY0kxL+VRxbhCJLGgohQaPRI7umYt0Lk2Tfj+1+ru+HQiKqVZIfzjL1IFjmKiKbVTpnDqHUaDTRa1QFAUyUCX/8XfOvnqc1le/lBU3ahhTxQ7FzH39Kz/vOIi/kmAHYtSv3px6L4EqUouIBqpoCIROzuldr2PFQJ5Tj2s457DOod2M6aMnUWfBQvuTn8juukT2x2VsXMNfScsjuM/G1McDpQgtPADiHNrJCdbgoirvv3eSvJvzxedfUqk1MPUaIQQoPOcOvlP6zZQ7p8zn6odVp2H/SEDLXzBNU0LRoVJrEEURyy6xSzecNVxu1y5gCYwxGGPw3rPeG3T/JfgXhBDKlm8ADOX97EYhGGCK0qP/p5AwzzllVJmY39yvzzjUG4qIqDJxwwcTkyTJBQwHyiaIBQquTzfKIRWxIgKGA0mSXDCATdutyaBhH+i0iGzERNwLUubW6aBhX9puTbIwnHIDx/O/AbBk8w/YCqUhAAAAAElFTkSuQmCC">
-<link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEXElEQVR4nMWXTWgdVRTHf+feO+9j8vKSpsHaGEGrolBQijs3Wu2im0qLLrpQ1C4KIkVb3AiKUMWN3dTiyq2IBRfBLEQF8WshIn5UwUVrLLWklNb6kpfOvDcz9x4Xk8R8vKcpSe1/OXPm/P/n3P/ce49QwgK+Xh8ZNy4c0sAehDsBBwjrgwIFyhkxTIbCnEjTK+cXOGWRvDG0V5C3RWRMVdfJ2RsigqpOK/pcOjczAVgBqA8O7zHIhyWvFvOi1lv5SijgQZwIBPTRtN2alDiOt6pUTokwWgZgN5h4JTxgVbksmt3rVCpHxMgoqiW5oBtf/AIUdH7tjYxqqByRuDF8GrijfIvRIkAI14ffGMQZgEBZ5W8SN4Y9YAAIit3cmDXNeoJXMy9qIyBYCWE2jf2fc03MYoeDWyRfeFZxhY2rnVAEu2EroWCc8aGTVxa5ytKMxI3hZVVq4cHr0qD1YyGXFcQt97hbFRs5JfqPfCIYI/gQrl2k6rK+rhKwMqAXeZHndNMO9YEYkeXhYg0IaLE2I5s1Rc0nFmcpioKRkU3s3LUTay2qihgp2yyCn0koWu01d6a/APmnGoBiZg5tJXTTNi8cfp7PPv2YR3Y9TCeZg8xDUDTL2LT/Aba8uBekVCDOssT11yDAK34mKRMHz9hr+xl7Yz8Yw2BzEFVlaGgIVU/9njHMQA1EuOXYE9z25rNUt23Bz3XIW7NokoH0FtFbQAiYuEpz9w4kctjmAFtffpytLz0GcZ28kyEi5O0Ed/etbP/2BOPHn0K7BSHNKHyCBsVtHmT86JPU79+GdrOenVglQJzFJykjzzzI9o/eYvPTD+FnU4qrKcXc1TJmoZoiYEYHsVFMND5CuW6CWEdopzR338ftrxzmpkO7CVm39MoKrP4LAFBss07IMsxQHVRLE640lgCFR9WjWdEjjVLkLTTL6Xe+9BUg1hBVhspqVSFob2eLoL7HC1Wk4jBRHalXe9P0EqAhIJUarYnvOH/zu/z1wTfYZoxUHcaY0kxL+VRxbhCJLGgohQaPRI7umYt0Lk2Tfj+1+ru+HQiKqVZIfzjL1IFjmKiKbVTpnDqHUaDTRa1QFAUyUCX/8XfOvnqc1le/lBU3ahhTxQ7FzH39Kz/vOIi/kmAHYtSv3px6L4EqUouIBqpoCIROzuldr2PFQJ5Tj2s457DOod2M6aMnUWfBQvuTn8juukT2x2VsXMNfScsjuM/G1McDpQgtPADiHNrJCdbgoirvv3eSvJvzxedfUqk1MPUaIQQoPOcOvlP6zZQ7p8zn6odVp2H/SEDLXzBNU0LRoVJrEEURyy6xSzecNVxu1y5gCYwxGGPw3rPeG3T/JfgXhBDKlm8ADOX97EYhGGCK0qP/p5AwzzllVJmY39yvzzjUG4qIqDJxwwcTkyTJBQwHyiaIBQquTzfKIRWxIgKGA0mSXDCATdutyaBhH+i0iGzERNwLUubW6aBhX9puTbIwnHIDx/O/AbBk8w/YCqUhAAAAAElFTkSuQmCC">
 
+.target-users-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+.target-user-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 20px}
+.target-user-card .doc-subhead{margin:0 0 10px;color:var(--text);font-size:18px}
+.target-user-card .doc-p{margin:0}
+@media(max-width:760px){.target-users-grid{grid-template-columns:1fr}}
+</style>
+<link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEXElEQVR4nMWXTWgdVRTHf+feO+9j8vKSpsHaGEGrolBQijs3Wu2im0qLLrpQ1C4KIkVb3AiKUMWN3dTiyq2IBRfBLEQF8WshIn5UwUVrLLWklNb6kpfOvDcz9x4Xk8R8vKcpSe1/OXPm/P/n3P/ce49QwgK+Xh8ZNy4c0sAehDsBBwjrgwIFyhkxTIbCnEjTK+cXOGWRvDG0V5C3RWRMVdfJ2RsigqpOK/pcOjczAVgBqA8O7zHIhyWvFvOi1lv5SijgQZwIBPTRtN2alDiOt6pUTokwWgZgN5h4JTxgVbksmt3rVCpHxMgoqiW5oBtf/AIUdH7tjYxqqByRuDF8GrijfIvRIkAI14ffGMQZgEBZ5W8SN4Y9YAAIit3cmDXNeoJXMy9qIyBYCWE2jf2fc03MYoeDWyRfeFZxhY2rnVAEu2EroWCc8aGTVxa5ytKMxI3hZVVq4cHr0qD1YyGXFcQt97hbFRs5JfqPfCIYI/gQrl2k6rK+rhKwMqAXeZHndNMO9YEYkeXhYg0IaLE2I5s1Rc0nFmcpioKRkU3s3LUTay2qihgp2yyCn0koWu01d6a/APmnGoBiZg5tJXTTNi8cfp7PPv2YR3Y9TCeZg8xDUDTL2LT/Aba8uBekVCDOssT11yDAK34mKRMHz9hr+xl7Yz8Yw2BzEFVlaGgIVU/9njHMQA1EuOXYE9z25rNUt23Bz3XIW7NokoH0FtFbQAiYuEpz9w4kctjmAFtffpytLz0GcZ28kyEi5O0Ed/etbP/2BOPHn0K7BSHNKHyCBsVtHmT86JPU79+GdrOenVglQJzFJykjzzzI9o/eYvPTD+FnU4qrKcXc1TJmoZoiYEYHsVFMND5CuW6CWEdopzR338ftrxzmpkO7CVm39MoKrP4LAFBss07IMsxQHVRLE640lgCFR9WjWdEjjVLkLTTL6Xe+9BUg1hBVhspqVSFob2eLoL7HC1Wk4jBRHalXe9P0EqAhIJUarYnvOH/zu/z1wTfYZoxUHcaY0kxL+VRxbhCJLGgohQaPRI7umYt0Lk2Tfj+1+ru+HQiKqVZIfzjL1IFjmKiKbVTpnDqHUaDTRa1QFAUyUCX/8XfOvnqc1le/lBU3ahhTxQ7FzH39Kz/vOIi/kmAHYtSv3px6L4EqUouIBqpoCIROzuldr2PFQJ5Tj2s457DOod2M6aMnUWfBQvuTn8juukT2x2VsXMNfScsjuM/G1McDpQgtPADiHNrJCdbgoirvv3eSvJvzxedfUqk1MPUaIQQoPOcOvlP6zZQ7p8zn6odVp2H/SEDLXzBNU0LRoVJrEEURyy6xSzecNVxu1y5gCYwxGGPw3rPeG3T/JfgXhBDKlm8ADOX97EYhGGCK0qP/p5AwzzllVJmY39yvzzjUG4qIqDJxwwcTkyTJBQwHyiaIBQquTzfKIRWxIgKGA0mSXDCATdutyaBhH+i0iGzERNwLUubW6aBhX9puTbIwnHIDx/O/AbBk8w/YCqUhAAAAAElFTkSuQmCC" rel="icon" sizes="32x32" type="image/png"/>
+<link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEXElEQVR4nMWXTWgdVRTHf+feO+9j8vKSpsHaGEGrolBQijs3Wu2im0qLLrpQ1C4KIkVb3AiKUMWN3dTiyq2IBRfBLEQF8WshIn5UwUVrLLWklNb6kpfOvDcz9x4Xk8R8vKcpSe1/OXPm/P/n3P/ce49QwgK+Xh8ZNy4c0sAehDsBBwjrgwIFyhkxTIbCnEjTK+cXOGWRvDG0V5C3RWRMVdfJ2RsigqpOK/pcOjczAVgBqA8O7zHIhyWvFvOi1lv5SijgQZwIBPTRtN2alDiOt6pUTokwWgZgN5h4JTxgVbksmt3rVCpHxMgoqiW5oBtf/AIUdH7tjYxqqByRuDF8GrijfIvRIkAI14ffGMQZgEBZ5W8SN4Y9YAAIit3cmDXNeoJXMy9qIyBYCWE2jf2fc03MYoeDWyRfeFZxhY2rnVAEu2EroWCc8aGTVxa5ytKMxI3hZVVq4cHr0qD1YyGXFcQt97hbFRs5JfqPfCIYI/gQrl2k6rK+rhKwMqAXeZHndNMO9YEYkeXhYg0IaLE2I5s1Rc0nFmcpioKRkU3s3LUTay2qihgp2yyCn0koWu01d6a/APmnGoBiZg5tJXTTNi8cfp7PPv2YR3Y9TCeZg8xDUDTL2LT/Aba8uBekVCDOssT11yDAK34mKRMHz9hr+xl7Yz8Yw2BzEFVlaGgIVU/9njHMQA1EuOXYE9z25rNUt23Bz3XIW7NokoH0FtFbQAiYuEpz9w4kctjmAFtffpytLz0GcZ28kyEi5O0Ed/etbP/2BOPHn0K7BSHNKHyCBsVtHmT86JPU79+GdrOenVglQJzFJykjzzzI9o/eYvPTD+FnU4qrKcXc1TJmoZoiYEYHsVFMND5CuW6CWEdopzR338ftrxzmpkO7CVm39MoKrP4LAFBss07IMsxQHVRLE640lgCFR9WjWdEjjVLkLTTL6Xe+9BUg1hBVhspqVSFob2eLoL7HC1Wk4jBRHalXe9P0EqAhIJUarYnvOH/zu/z1wTfYZoxUHcaY0kxL+VRxbhCJLGgohQaPRI7umYt0Lk2Tfj+1+ru+HQiKqVZIfzjL1IFjmKiKbVTpnDqHUaDTRa1QFAUyUCX/8XfOvnqc1le/lBU3ahhTxQ7FzH39Kz/vOIi/kmAHYtSv3px6L4EqUouIBqpoCIROzuldr2PFQJ5Tj2s457DOod2M6aMnUWfBQvuTn8juukT2x2VsXMNfScsjuM/G1McDpQgtPADiHNrJCdbgoirvv3eSvJvzxedfUqk1MPUaIQQoPOcOvlP6zZQ7p8zn6odVp2H/SEDLXzBNU0LRoVJrEEURyy6xSzecNVxu1y5gCYwxGGPw3rPeG3T/JfgXhBDKlm8ADOX97EYhGGCK0qP/p5AwzzllVJmY39yvzzjUG4qIqDJxwwcTkyTJBQwHyiaIBQquTzfKIRWxIgKGA0mSXDCATdutyaBhH+i0iGzERNwLUubW6aBhX9puTbIwnHIDx/O/AbBk8w/YCqUhAAAAAElFTkSuQmCC" rel="shortcut icon"/>
 </head>
 <body>
 <div class="proto-banner">⚠ Hackathon Project Documentation — Clarifake</div>
@@ -104,13 +105,13 @@ footer{border-top:1px solid var(--line);padding:36px 0}.footer-row{display:flex;
 </div>
 <header class="hero"><div class="wrap">
 <div class="eyebrow"><span class="dot"></span>Project documentation</div>
-<h1>Know what's <span class="accent">real</span>.<br>Before it spreads.</h1>
+<h1>Know what's <span class="accent">real</span>.<br/>Before it spreads.</h1>
 <p>Hackathon project documentation for Clarifake — a privacy-first platform for detecting synthetic and manipulated digital media.</p>
 </div></header>
 <main><div class="wrap"><p class="doc-p">CLARIFAKE</p>
-<p class="doc-p">Know what&#x27;s real. Before it spreads.</p>
+<p class="doc-p">Know what's real. Before it spreads.</p>
 <p class="doc-p">Hackathon Project Documentation  |  clarifake.com</p>
-</section>
+
 <section class="doc-section"><div class="section-tag">Documentation</div><h2>1. Problem Statement</h2>
 <p class="doc-p">Synthetic and manipulated media — deepfake video, cloned audio, AI-generated text, and doctored images — is now cheap to produce and hard to detect with the naked eye. Misinformation built from this content spreads faster than it can be fact-checked, and it undermines trust in news, evidence, and everyday communication.</p>
 <p class="doc-p">At the same time, most “verification” or “detection” tools on the market ask users to trade away their privacy for the service: they require account sign-up, store the uploaded media, log user identity, or lock real functionality behind a paid subscription. For a tool whose entire purpose is trust, this is a contradiction — people are asked to hand over personal data to a service that has no proven track record of protecting it.</p>
@@ -118,7 +119,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}.footer-row{display:flex;
 </section>
 <section class="doc-section"><div class="section-tag">Documentation</div><h2>2. Our Solution</h2>
 <p class="doc-p">Clarifake is a web platform that lets anyone check whether a piece of digital content — video, audio, text, or image — shows signs of synthetic generation or manipulation, and helps establish whether the information it presents is authentic. The content is processed entirely for the purpose of generating that verdict; it is analyzed on the fly and is not stored, profiled, sold, or tied back to an identifiable user.</p>
-<p class="doc-p">The product is built around a single ideological commitment: verification without surveillance. A user should not have to trust us with their data in order for us to help them decide whether to trust someone else&#x27;s.</p>
+<p class="doc-p">The product is built around a single ideological commitment: verification without surveillance. A user should not have to trust us with their data in order for us to help them decide whether to trust someone else's.</p>
 </section>
 <section class="doc-section"><div class="section-tag">Documentation</div><h2>3. Core Principles</h2>
 <p class="doc-p">No data collection: uploaded media is processed in memory / in a transient pipeline for the analysis request only, and is not retained, logged with personal identifiers, or used to build a profile of the user.</p>
@@ -148,8 +149,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}.footer-row{display:flex;
 <p class="doc-p">Downloadable forensic-style report for newsroom, platform, or investigative use</p>
 <p class="doc-p">Built for both casual users (“check before you share”) and professional users (newsrooms, platforms, investigators)</p>
 </section>
-<section class="doc-section"><div class="section-tag">Documentation</div><h2>6. Target Users</h2>
-</section>
+<section class="doc-section"><h2>6. Target Users</h2><p class="doc-p">Clarifake is designed for people who need to verify digital content quickly and understand why it may be synthetic or manipulated.</p><div class="target-users-grid"><div class="target-user-card"><h3 class="doc-subhead">Cybersecurity Enthusiasts</h3><p class="doc-p">Explore digital forensics, AI-generated media detection, synthetic media analysis, and content authenticity verification.</p></div><div class="target-user-card"><h3 class="doc-subhead">Police &amp; Law Enforcement</h3><p class="doc-p">Verify suspicious videos, images, audio, and other digital evidence during investigations and prepare evidence-backed reports.</p></div><div class="target-user-card"><h3 class="doc-subhead">General Public</h3><p class="doc-p">Check viral, suspicious, or potentially AI-generated content before believing or sharing it.</p></div></div></section>
 <section class="doc-section"><div class="section-tag">Documentation</div><h2>7. Proposed Tech Stack &amp; APIs</h2>
 <p class="doc-p">The stack below is a starting proposal; the team is evaluating the best-fit provider for each layer based on accuracy, cost, and — critically — data-retention policy, since any third-party API used must not retain uploaded media beyond the single inference call.</p>
 </section>
@@ -158,7 +158,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}.footer-row{display:flex;
 <p class="doc-p">No user accounts required: the core flow needs no login, so there is no persistent user identity to link content to.</p>
 <p class="doc-p">Minimal, purpose-only API calls: third-party analysis APIs are called only with the specific data each check needs, not the full user context.</p>
 <p class="doc-p">Transparent by design: the results screen shows exactly which checks ran and what each contributed to the final score, so the process itself is auditable by the user.</p>
-<p class="doc-p">No monetization via data: with no subscription and no data resale, the project&#x27;s incentives are aligned with user trust rather than engagement or data harvesting.</p>
+<p class="doc-p">No monetization via data: with no subscription and no data resale, the project's incentives are aligned with user trust rather than engagement or data harvesting.</p>
 </section>
 <section class="doc-section"><div class="section-tag">Documentation</div><h2>9. Differentiators</h2>
 <p class="doc-p">Most existing detection tools compete on accuracy alone. Clarifake competes on accuracy and trustworthiness of the tool itself:</p>
@@ -176,7 +176,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}.footer-row{display:flex;
 <p class="doc-p">Community-reviewed dataset of known synthetic media to keep detection models current</p>
 </section>
 <section class="doc-section"><div class="section-tag">Documentation</div><h2>11. Conclusion</h2>
-<p class="doc-p">Clarifake is proposed as a hackathon solution to the growing problem of synthetic and manipulated digital content, built around a simple idea: a tool that helps people verify what&#x27;s real should not itself ask them to give up their privacy, and should not put essential trust-and-safety functionality behind a paywall. By combining multi-signal forensic analysis with a strictly no-data-retention, no-subscription approach, Clarifake aims to be a tool people can use with confidence — both in its results and in its handling of their content.</p>
+<p class="doc-p">Clarifake is proposed as a hackathon solution to the growing problem of synthetic and manipulated digital content, built around a simple idea: a tool that helps people verify what's real should not itself ask them to give up their privacy, and should not put essential trust-and-safety functionality behind a paywall. By combining multi-signal forensic analysis with a strictly no-data-retention, no-subscription approach, Clarifake aims to be a tool people can use with confidence — both in its results and in its handling of their content.</p>
 </section></div></main>
 <footer><div class="wrap footer-row">
 <p>© 2026 ClariFake.</p>
