@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clarifake — Project Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1E1C28;--panel:#252134;--panel-2:#2B2639;--line:#3A3350;--text:#D8D4E4;--muted:#A79FBD;--muted-2:#7A7292;--real:#F4B740;--fake:#FF5470;--display:'Chakra Petch',sans-serif;--body:'Inter',sans-serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:radial-gradient(ellipse 900px 500px at 15% -10%,rgba(244,183,64,.08),transparent 60%),radial-gradient(ellipse 700px 500px at 100% 10%,rgba(255,84,112,.06),transparent 60%),linear-gradient(180deg,#1A1824,#1E1C28 40%,#201E2A);color:var(--text);font-family:var(--body);line-height:1.6;overflow-x:hidden}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0,rgba(255,255,255,.012) 1px,transparent 1px,transparent 3px)}
+.wrap{max-width:1180px;margin:auto;padding:0 32px;position:relative;z-index:1}
+.proto-banner{background:var(--panel-2);border-bottom:1px solid var(--line);text-align:center;padding:8px;font:12px var(--mono);color:var(--muted)}
+nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;font:700 18px var(--display)}
+.logo-mark{width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,var(--real),var(--fake));position:relative}.logo-mark:after{content:"";position:absolute;inset:5px;border:1.5px solid var(--ink);border-radius:3px}
+.nav-cta{background:var(--real);color:#2A1600;padding:9px 16px;border-radius:6px;text-decoration:none;font:700 13px var(--mono)}
+.hero{padding:72px 0 64px;border-bottom:1px solid var(--line);position:relative}.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;opacity:.08}
+.eyebrow,.section-tag{font:12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--real)}.eyebrow{display:inline-flex;gap:8px;background:rgba(244,183,64,.08);border:1px solid rgba(244,183,64,.25);padding:6px 12px;border-radius:20px;margin-bottom:20px}.dot{width:6px;height:6px;border-radius:50%;background:var(--real);box-shadow:0 0 8px var(--real)}
+h1{font:700 48px/1.1 var(--display);margin-bottom:18px}h1 .accent{background:linear-gradient(100deg,var(--real),#FFD98A);-webkit-background-clip:text;color:transparent}.hero p{max-width:760px;color:var(--muted);font-size:16px}
+.doc-section{padding:68px 0;border-bottom:1px solid var(--line)}.doc-section h2{font-size:32px;line-height:1.2;margin:8px 0 24px}.doc-subhead{font-size:21px;margin:30px 0 12px}.doc-p{max-width:850px;color:var(--muted);font-size:15px;margin-bottom:14px}.doc-list{max-width:850px;padding-left:24px;color:var(--muted);margin:10px 0 20px}.doc-list li{padding:4px 0}.doc-list li::marker{color:var(--real)}
+footer{border-top:1px solid var(--line);padding:36px 0}.footer-row{display:flex;justify-content:space-between;gap:20px;align-items:center}.footer-row p{font-size:13px;color:var(--muted-2)}
+@media(max-width:760px){.wrap{padding:0 20px}h1{font-size:36px}.doc-section{padding:48px 0}.footer-row{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+<div class="proto-banner">⚠ Hackathon Project Documentation — Clarifake</div>
+<div class="wrap">
+<nav>
+<div class="logo"><div class="logo-mark"></div>Clarifake<span style="color:var(--real)">_</span></div>
+<a class="nav-cta" href="clarifake (1).html">[ ← Back to prototype ]</a>
+</nav>
+</div>
+<header class="hero"><div class="wrap">
+<div class="eyebrow"><span class="dot"></span>Project documentation</div>
+<h1>Know what's <span class="accent">real</span>.<br>Before it spreads.</h1>
+<p>Hackathon project documentation for Clarifake — a privacy-first platform for detecting synthetic and manipulated digital media.</p>
+</div></header>
+<main><div class="wrap"><p class="doc-p">CLARIFAKE</p>
+<p class="doc-p">Know what&#x27;s real. Before it spreads.</p>
+<p class="doc-p">Hackathon Project Documentation  |  clarifake.com</p>
+</section>
+<section class="doc-section"><div class="section-tag">Documentation</div><h2>1. Problem Statement</h2>
+<p class="doc-p">Synthetic and manipulated media — deepfake video, cloned audio, AI-generated text, and doctored images — is now cheap to produce and hard to detect with the naked eye. Misinformation built from this content spreads faster than it can be fact-checked, and it undermines trust in news, evidence, and everyday communication.</p>
+<p class="doc-p">At the same time, most “verification” or “detection” tools on the market ask users to trade away their privacy for the service: they require account sign-up, store the uploaded media, log user identity, or lock real functionality behind a paid subscription. For a tool whose entire purpose is trust, this is a contradiction — people are asked to hand over personal data to a service that has no proven track record of protecting it.</p>
+<p class="doc-p">The gap in the market is a content-authenticity checker that people can trust precisely because it does not behave like the misinformation ecosystem it is trying to fix.</p>
+</section>
+<section class="doc-section"><div class="section-tag">Documentation</div><h2>2. Our Solution</h2>
+<p class="doc-p">Clarifake is a web platform that lets anyone check whether a piece of digital content — video, audio, text, or image — shows signs of synthetic generation or manipulation, and helps establish whether the information it presents is authentic. The content is processed entirely for the purpose of generating that verdict; it is analyzed on the fly and is not stored, profiled, sold, or tied back to an identifiable user.</p>
+<p class="doc-p">The product is built around a single ideological commitment: verification without surveillance. A user should not have to trust us with their data in order for us to help them decide whether to trust someone else&#x27;s.</p>
+</section>
+<section class="doc-section"><div class="section-tag">Documentation</div><h2>3. Core Principles</h2>
+<p class="doc-p">No data collection: uploaded media is processed in memory / in a transient pipeline for the analysis request only, and is not retained, logged with personal identifiers, or used to build a profile of the user.</p>
+<p class="doc-p">No hidden transmission: content is not silently forwarded to third parties beyond the specific analysis APIs required to produce a verdict, and users are told exactly which checks ran.</p>
+<p class="doc-p">No subscription paywall: core verification functionality is free and available without an account, so that authenticity-checking is never gated behind payment during a fast-moving misinformation event.</p>
+<p class="doc-p">Explainable results: every score is broken down into the individual signals that produced it, rather than being handed to the user as an opaque black-box number.</p>
+<p class="doc-p">Session-only processing: results are generated per request; nothing is needed from a prior visit for the tool to work again.</p>
+</section>
+<section class="doc-section"><div class="section-tag">Documentation</div><h2>4. How It Works</h2>
+<h3 class="doc-subhead">4.1 Three-Step Flow</h3>
+<p class="doc-p">Upload media: the user drops in a video, audio file, image, or text snippet, or pastes a link. Frames, waveforms, and available metadata are extracted automatically.</p>
+<p class="doc-p">Analyze signals: several independent checks run in parallel to look for generation artifacts — spectral noise, lip-sync drift, unnatural blinking, unnatural phrasing patterns, and more.</p>
+<p class="doc-p">Get a verdict: the signals are combined into a single confidence score (0–100) with a clear verdict — authentic, likely synthetic, or inconclusive — plus the evidence behind it.</p>
+<h3 class="doc-subhead">4.2 The Four Signal Checks</h3>
+<p class="doc-p">Rather than a single black-box guess, every score is built from independent, individually-displayed checks:</p>
+<p class="doc-p">Spectral &amp; pixel analysis — frequency patterns inconsistent with natural camera capture</p>
+<p class="doc-p">Temporal analysis — frame-to-frame flicker, warping, and motion drift</p>
+<p class="doc-p">Audio-visual synchronization — mismatches between speech and lip / facial movement</p>
+<p class="doc-p">Source &amp; metadata analysis — encoding history, content-provenance credentials (e.g. C2PA), and file history</p>
+<p class="doc-p">Scores above ~85 are flagged high-confidence synthetic; scores in the 40–85 band are returned as “inconclusive” rather than forced into a false-certain answer.</p>
+</section>
+<section class="doc-section"><div class="section-tag">Documentation</div><h2>5. Key Features</h2>
+<p class="doc-p">Multi-format support: video, audio, image, and text authenticity checks</p>
+<p class="doc-p">No account required for core checks — free, first-run access</p>
+<p class="doc-p">No subscription tier gating essential detection functionality</p>
+<p class="doc-p">Transparent, multi-signal confidence scoring instead of a single opaque label</p>
+<p class="doc-p">Downloadable forensic-style report for newsroom, platform, or investigative use</p>
+<p class="doc-p">Built for both casual users (“check before you share”) and professional users (newsrooms, platforms, investigators)</p>
+</section>
+<section class="doc-section"><div class="section-tag">Documentation</div><h2>6. Target Users</h2>
+</section>
+<section class="doc-section"><div class="section-tag">Documentation</div><h2>7. Proposed Tech Stack &amp; APIs</h2>
+<p class="doc-p">The stack below is a starting proposal; the team is evaluating the best-fit provider for each layer based on accuracy, cost, and — critically — data-retention policy, since any third-party API used must not retain uploaded media beyond the single inference call.</p>
+</section>
+<section class="doc-section"><div class="section-tag">Documentation</div><h2>8. System Approach (Privacy-First Architecture)</h2>
+<p class="doc-p">Ephemeral processing: uploaded content lives only in memory / temporary storage for the duration of the analysis request, then is discarded immediately after the verdict is returned.</p>
+<p class="doc-p">No user accounts required: the core flow needs no login, so there is no persistent user identity to link content to.</p>
+<p class="doc-p">Minimal, purpose-only API calls: third-party analysis APIs are called only with the specific data each check needs, not the full user context.</p>
+<p class="doc-p">Transparent by design: the results screen shows exactly which checks ran and what each contributed to the final score, so the process itself is auditable by the user.</p>
+<p class="doc-p">No monetization via data: with no subscription and no data resale, the project&#x27;s incentives are aligned with user trust rather than engagement or data harvesting.</p>
+</section>
+<section class="doc-section"><div class="section-tag">Documentation</div><h2>9. Differentiators</h2>
+<p class="doc-p">Most existing detection tools compete on accuracy alone. Clarifake competes on accuracy and trustworthiness of the tool itself:</p>
+<p class="doc-p">Free, account-free core functionality — no subscription wall on essential checks</p>
+<p class="doc-p">No data collection or retention of uploaded content</p>
+<p class="doc-p">Multi-signal, explainable scoring rather than a single opaque output</p>
+<p class="doc-p">Designed for both everyday users and professional/newsroom workflows</p>
+</section>
+<section class="doc-section"><div class="section-tag">Documentation</div><h2>10. Future Scope</h2>
+<p class="doc-p">Browser extension for in-place verification of media on social platforms</p>
+<p class="doc-p">Real-time livestream authenticity flagging</p>
+<p class="doc-p">Source detection via reverse-search APIs: in addition to the existing metadata/C2PA provenance check, we are also working on identifying the origin of uploaded content by cross-referencing it — via API — against reverse-image and reverse-video search engines (e.g. Google Images, Yandex, TinEye, and others). This surfaces where else the video or image already exists online, and helps establish whether the specific footage or frame patterns in the upload have been reused, re-edited, or previously published elsewhere — the search is performed on the content itself, independent of any user identity, and results are not stored beyond the session.</p>
+<p class="doc-p">Optional, opt-in API for platforms to integrate automated flagging (still no retention of end-user content)</p>
+<p class="doc-p">Expanded language support for text-authenticity checks</p>
+<p class="doc-p">Community-reviewed dataset of known synthetic media to keep detection models current</p>
+</section>
+<section class="doc-section"><div class="section-tag">Documentation</div><h2>11. Conclusion</h2>
+<p class="doc-p">Clarifake is proposed as a hackathon solution to the growing problem of synthetic and manipulated digital content, built around a simple idea: a tool that helps people verify what&#x27;s real should not itself ask them to give up their privacy, and should not put essential trust-and-safety functionality behind a paywall. By combining multi-signal forensic analysis with a strictly no-data-retention, no-subscription approach, Clarifake aims to be a tool people can use with confidence — both in its results and in its handling of their content.</p>
+</section></div></main>
+<footer><div class="wrap footer-row">
+<p>© 2026 Clarifake. Not a substitute for human judgment.</p>
+<p>clarifake.com · documentation</p>
+</div></footer>
+</body>
+</html>
