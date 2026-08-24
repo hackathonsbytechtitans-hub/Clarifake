@@ -3,7 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clarifake — Project Documentation</title>
+
+<!-- ============ SEO: PRIMARY META TAGS ============ -->
+<title>Clarifake — Deepfake & AI Content Detection, Privacy-First | Project Documentation</title>
+<meta name="title" content="Clarifake — Deepfake & AI Content Detection, Privacy-First">
+<meta name="description" content="Clarifake is a privacy-first platform for detecting deepfakes, AI-generated images, cloned audio, and manipulated text. No account, no data retention, no paywall on core checks. Read the full project documentation.">
+<meta name="keywords" content="deepfake detection, AI content detection, synthetic media detector, image authenticity checker, video verification tool, audio deepfake detection, misinformation detection, privacy-first AI tool, content authenticity, C2PA verification, Clarifake">
+<meta name="author" content="Clarifake">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="language" content="English">
+<link rel="canonical" href="https://clarifake.com/documentation">
+
+<!-- ============ SEO: OPEN GRAPH / FACEBOOK ============ -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://clarifake.com/documentation">
+<meta property="og:site_name" content="Clarifake">
+<meta property="og:title" content="Clarifake — Know What's Real. Before It Spreads.">
+<meta property="og:description" content="A privacy-first platform for detecting synthetic and manipulated digital media — video, audio, image, and text. No sign-up, no data retention, no paywall on core detection.">
+<meta property="og:image" content="https://clarifake.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<!-- ============ SEO: TWITTER CARD ============ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://clarifake.com/documentation">
+<meta name="twitter:title" content="Clarifake — Know What's Real. Before It Spreads.">
+<meta name="twitter:description" content="Privacy-first deepfake & synthetic media detection — no account, no data retention, no paywall on core checks.">
+<meta name="twitter:image" content="https://clarifake.com/og-image.png">
+
+<!-- ============ SEO: STRUCTURED DATA (JSON-LD) ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Clarifake",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Web",
+  "url": "https://clarifake.com",
+  "description": "Clarifake is a privacy-first platform for detecting synthetic and manipulated digital media, including deepfake video, cloned audio, AI-generated images, and manipulated text — without requiring an account or retaining uploaded content.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Deepfake video detection",
+    "AI-generated image detection",
+    "Cloned audio detection",
+    "AI-generated text detection",
+    "No account required",
+    "No data retention",
+    "Explainable multi-signal confidence scoring"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Clarifake", "item": "https://clarifake.com" },
+    { "@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://clarifake.com/documentation" }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -28,7 +93,6 @@ footer{border-top:1px solid var(--line);padding:36px 0}.footer-row{display:flex;
   <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEXElEQVR4nMWXTWgdVRTHf+feO+9j8vKSpsHaGEGrolBQijs3Wu2im0qLLrpQ1C4KIkVb3AiKUMWN3dTiyq2IBRfBLEQF8WshIn5UwUVrLLWklNb6kpfOvDcz9x4Xk8R8vKcpSe1/OXPm/P/n3P/ce49QwgK+Xh8ZNy4c0sAehDsBBwjrgwIFyhkxTIbCnEjTK+cXOGWRvDG0V5C3RWRMVdfJ2RsigqpOK/pcOjczAVgBqA8O7zHIhyWvFvOi1lv5SijgQZwIBPTRtN2alDiOt6pUTokwWgZgN5h4JTxgVbksmt3rVCpHxMgoqiW5oBtf/AIUdH7tjYxqqByRuDF8GrijfIvRIkAI14ffGMQZgEBZ5W8SN4Y9YAAIit3cmDXNeoJXMy9qIyBYCWE2jf2fc03MYoeDWyRfeFZxhY2rnVAEu2EroWCc8aGTVxa5ytKMxI3hZVVq4cHr0qD1YyGXFcQt97hbFRs5JfqPfCIYI/gQrl2k6rK+rhKwMqAXeZHndNMO9YEYkeXhYg0IaLE2I5s1Rc0nFmcpioKRkU3s3LUTay2qihgp2yyCn0koWu01d6a/APmnGoBiZg5tJXTTNi8cfp7PPv2YR3Y9TCeZg8xDUDTL2LT/Aba8uBekVCDOssT11yDAK34mKRMHz9hr+xl7Yz8Yw2BzEFVlaGgIVU/9njHMQA1EuOXYE9z25rNUt23Bz3XIW7NokoH0FtFbQAiYuEpz9w4kctjmAFtffpytLz0GcZ28kyEi5O0Ed/etbP/2BOPHn0K7BSHNKHyCBsVtHmT86JPU79+GdrOenVglQJzFJykjzzzI9o/eYvPTD+FnU4qrKcXc1TJmoZoiYEYHsVFMND5CuW6CWEdopzR338ftrxzmpkO7CVm39MoKrP4LAFBss07IMsxQHVRLE640lgCFR9WjWdEjjVLkLTTL6Xe+9BUg1hBVhspqVSFob2eLoL7HC1Wk4jBRHalXe9P0EqAhIJUarYnvOH/zu/z1wTfYZoxUHcaY0kxL+VRxbhCJLGgohQaPRI7umYt0Lk2Tfj+1+ru+HQiKqVZIfzjL1IFjmKiKbVTpnDqHUaDTRa1QFAUyUCX/8XfOvnqc1le/lBU3ahhTxQ7FzH39Kz/vOIi/kmAHYtSv3px6L4EqUouIBqpoCIROzuldr2PFQJ5Tj2s457DOod2M6aMnUWfBQvuTn8juukT2x2VsXMNfScsjuM/G1McDpQgtPADiHNrJCdbgoirvv3eSvJvzxedfUqk1MPUaIQQoPOcOvlP6zZQ7p8zn6odVp2H/SEDLXzBNU0LRoVJrEEURyy6xSzecNVxu1y5gCYwxGGPw3rPeG3T/JfgXhBDKlm8ADOX97EYhGGCK0qP/p5AwzzllVJmY39yvzzjUG4qIqDJxwwcTkyTJBQwHyiaIBQquTzfKIRWxIgKGA0mSXDCATdutyaBhH+i0iGzERNwLUubW6aBhX9puTbIwnHIDx/O/AbBk8w/YCqUhAAAAAElFTkSuQmCC">
 <link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEXElEQVR4nMWXTWgdVRTHf+feO+9j8vKSpsHaGEGrolBQijs3Wu2im0qLLrpQ1C4KIkVb3AiKUMWN3dTiyq2IBRfBLEQF8WshIn5UwUVrLLWklNb6kpfOvDcz9x4Xk8R8vKcpSe1/OXPm/P/n3P/ce49QwgK+Xh8ZNy4c0sAehDsBBwjrgwIFyhkxTIbCnEjTK+cXOGWRvDG0V5C3RWRMVdfJ2RsigqpOK/pcOjczAVgBqA8O7zHIhyWvFvOi1lv5SijgQZwIBPTRtN2alDiOt6pUTokwWgZgN5h4JTxgVbksmt3rVCpHxMgoqiW5oBtf/AIUdH7tjYxqqByRuDF8GrijfIvRIkAI14ffGMQZgEBZ5W8SN4Y9YAAIit3cmDXNeoJXMy9qIyBYCWE2jf2fc03MYoeDWyRfeFZxhY2rnVAEu2EroWCc8aGTVxa5ytKMxI3hZVVq4cHr0qD1YyGXFcQt97hbFRs5JfqPfCIYI/gQrl2k6rK+rhKwMqAXeZHndNMO9YEYkeXhYg0IaLE2I5s1Rc0nFmcpioKRkU3s3LUTay2qihgp2yyCn0koWu01d6a/APmnGoBiZg5tJXTTNi8cfp7PPv2YR3Y9TCeZg8xDUDTL2LT/Aba8uBekVCDOssT11yDAK34mKRMHz9hr+xl7Yz8Yw2BzEFVlaGgIVU/9njHMQA1EuOXYE9z25rNUt23Bz3XIW7NokoH0FtFbQAiYuEpz9w4kctjmAFtffpytLz0GcZ28kyEi5O0Ed/etbP/2BOPHn0K7BSHNKHyCBsVtHmT86JPU79+GdrOenVglQJzFJykjzzzI9o/eYvPTD+FnU4qrKcXc1TJmoZoiYEYHsVFMND5CuW6CWEdopzR338ftrxzmpkO7CVm39MoKrP4LAFBss07IMsxQHVRLE640lgCFR9WjWdEjjVLkLTTL6Xe+9BUg1hBVhspqVSFob2eLoL7HC1Wk4jBRHalXe9P0EqAhIJUarYnvOH/zu/z1wTfYZoxUHcaY0kxL+VRxbhCJLGgohQaPRI7umYt0Lk2Tfj+1+ru+HQiKqVZIfzjL1IFjmKiKbVTpnDqHUaDTRa1QFAUyUCX/8XfOvnqc1le/lBU3ahhTxQ7FzH39Kz/vOIi/kmAHYtSv3px6L4EqUouIBqpoCIROzuldr2PFQJ5Tj2s457DOod2M6aMnUWfBQvuTn8juukT2x2VsXMNfScsjuM/G1McDpQgtPADiHNrJCdbgoirvv3eSvJvzxedfUqk1MPUaIQQoPOcOvlP6zZQ7p8zn6odVp2H/SEDLXzBNU0LRoVJrEEURyy6xSzecNVxu1y5gCYwxGGPw3rPeG3T/JfgXhBDKlm8ADOX97EYhGGCK0qP/p5AwzzllVJmY39yvzzjUG4qIqDJxwwcTkyTJBQwHyiaIBQquTzfKIRWxIgKGA0mSXDCATdutyaBhH+i0iGzERNwLUubW6aBhX9puTbIwnHIDx/O/AbBk8w/YCqUhAAAAAElFTkSuQmCC">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
 </head>
 <body>
 <div class="proto-banner">⚠ Hackathon Project Documentation — Clarifake</div>
